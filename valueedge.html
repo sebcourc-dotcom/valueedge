@@ -7,7 +7,7 @@
 <meta http-equiv="Expires" content="0">
 <!-- BUILD:1779025902 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ValueEdge v7.7 — 1779025902</title>
+<title>ValueEdge v7.9</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
   :root{--bg:#080c10;--bg2:#0d1219;--bg3:#121920;--border:#1e2d3d;--green:#00e676;--gdim:#00e67618;--amber:#ffab00;--adim:#ffab0018;--red:#ff5252;--rdim:#ff525218;--blue:#29b6f6;--purple:#ce93d8;--text:#e8f0fe;--dim:#546e7a;--mid:#90a4ae;}
@@ -148,7 +148,7 @@
       <div>
         <div class="logo-text">ValueEdge</div>
         <div class="logo-sub">Winamax · Betclic · Unibet · PMU</div>
-        <div style="font-size:9px;color:var(--green);font-family:monospace">v7.7</div>
+        <div style="font-size:9px;color:var(--green);font-family:monospace">v7.9</div>
       </div>
     </div>
     <span id="quotaBadge" style="font-size:10px;color:var(--dim);font-family:monospace;margin-right:8px"></span>
@@ -589,9 +589,7 @@ function oLabel(o){
   return o.name;
 }
 
-const SOFT_LABELS = {
-  winamax_fr:"Winamax", betclic_fr:"Betclic", unibet_fr:"Unibet", pmu_fr:"PMU"
-};
+
 
 // ─── Consensus no-vig ────────────────────────────────────────────────────────
 // Utilise la moyenne harmonique des cotes de TOUS les books disponibles
@@ -668,7 +666,7 @@ function detectVB(events, bankroll) {
 <meta http-equiv="Expires" content="0">
 <!-- BUILD:1779025902 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ValueEdge v7.7 — 1779025902</title>
+<title>ValueEdge v7.9</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
   :root{--bg:#080c10;--bg2:#0d1219;--bg3:#121920;--border:#1e2d3d;--green:#00e676;--gdim:#00e67618;--amber:#ffab00;--adim:#ffab0018;--red:#ff5252;--rdim:#ff525218;--blue:#29b6f6;--purple:#ce93d8;--text:#e8f0fe;--dim:#546e7a;--mid:#90a4ae;}
@@ -809,7 +807,7 @@ function detectVB(events, bankroll) {
       <div>
         <div class="logo-text">ValueEdge</div>
         <div class="logo-sub">Winamax · Betclic · Unibet · PMU</div>
-        <div style="font-size:9px;color:var(--green);font-family:monospace">v7.7</div>
+        <div style="font-size:9px;color:var(--green);font-family:monospace">v7.9</div>
       </div>
     </div>
     <span id="quotaBadge" style="font-size:10px;color:var(--dim);font-family:monospace;margin-right:8px"></span>
@@ -983,6 +981,9 @@ const USER_BOOKS = [
   {key:"pmu_fr",     label:"PMU",     url:"https://www.pmu.fr/paris-sportifs/"},
 ];
 const USER_BOOK_KEYS = new Set(USER_BOOKS.map(b=>b.key));
+const SOFT_LABELS = {
+  winamax_fr:"Winamax", betclic_fr:"Betclic", unibet_fr:"Unibet", pmu_fr:"PMU"
+};
 const SHARP_KEYS = new Set(["pinnacle","betfair","betfair_ex_eu","matchbook","marathonbet"]);
 const SPORTS = [
   {key:"ligue1",      label:"⚽ Ligue 1"},
@@ -1250,9 +1251,7 @@ function oLabel(o){
   return o.name;
 }
 
-const SOFT_LABELS = {
-  winamax_fr:"Winamax", betclic_fr:"Betclic", unibet_fr:"Unibet", pmu_fr:"PMU"
-};
+
 
 // ─── Consensus no-vig ────────────────────────────────────────────────────────
 // Utilise la moyenne harmonique des cotes de TOUS les books disponibles
