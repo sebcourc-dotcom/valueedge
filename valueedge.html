@@ -2,187 +2,150 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<!-- BUILD:1779025902 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ValueEdge v7.9</title>
+<title>ValueEdge v8</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
-  :root{--bg:#080c10;--bg2:#0d1219;--bg3:#121920;--border:#1e2d3d;--green:#00e676;--gdim:#00e67618;--amber:#ffab00;--adim:#ffab0018;--red:#ff5252;--rdim:#ff525218;--blue:#29b6f6;--purple:#ce93d8;--text:#e8f0fe;--dim:#546e7a;--mid:#90a4ae;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;}
-  .app{max-width:1400px;margin:0 auto;padding:16px;}
-
-  /* Header */
-  .hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
-  .logo{display:flex;align-items:center;gap:10px;}
-  .logo-icon{width:36px;height:36px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#000;}
-  .logo-text{font-size:17px;font-weight:800;}
-  .logo-sub{font-size:9px;color:var(--dim);font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;}
-  .live-btn{display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:10px;color:var(--green);padding:5px 12px;border:1px solid var(--green);border-radius:20px;cursor:pointer;background:none;}
-  .live-btn:hover{background:var(--gdim);}
-  .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite;}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
-  /* Setup */
-  .setup{background:var(--bg2);border:2px solid var(--amber);border-radius:14px;padding:20px;margin-bottom:18px;}
-  .setup-title{font-size:15px;font-weight:800;color:var(--amber);margin-bottom:6px;}
-  .setup-sub{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:16px;}
-  .setup-row{display:flex;gap:8px;align-items:center;margin-top:8px;}
-  .url-inp{flex:1;background:var(--bg3);border:2px solid var(--amber);border-radius:8px;padding:9px 12px;color:var(--text);font-family:'Space Mono',monospace;font-size:12px;outline:none;}
-  .url-inp:focus{border-color:var(--green);}
-  .chk-btn{padding:9px 16px;background:var(--amber);border:none;border-radius:8px;color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;}
-  .chk-btn:disabled{opacity:.5;}
-  .proxy-ok{background:var(--gdim);border:1px solid var(--green);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--green);font-family:'Space Mono',monospace;margin-top:8px;}
-  .proxy-err{background:var(--rdim);border:1px solid var(--red);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--red);font-family:'Space Mono',monospace;margin-top:8px;}
-  .proxy-connected{background:var(--gdim);border:1px solid var(--green);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--green);font-family:'Space Mono',monospace;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;}
-  .reset-link{color:var(--dim);font-size:10px;cursor:pointer;background:none;border:none;}
-
-  /* Stats */
-  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px;}
-  .sc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;position:relative;overflow:hidden;}
-  .sc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
-  .sc.g::after{background:var(--green)}.sc.a::after{background:var(--amber)}.sc.b::after{background:var(--blue)}.sc.p::after{background:var(--purple)}
-  .sl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-family:'Space Mono',monospace;margin-bottom:5px;}
-  .sv{font-size:22px;font-weight:800;line-height:1;}
-  .sv.g{color:var(--green)}.sv.a{color:var(--amber)}.sv.b{color:var(--blue)}.sv.p{color:var(--purple)}
-  .ss{font-size:9px;color:var(--mid);margin-top:3px;font-family:'Space Mono',monospace;}
-
-  /* Tabs */
-  .tabs{display:flex;gap:3px;margin-bottom:16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:3px;width:fit-content;}
-  .tab{padding:6px 14px;border-radius:6px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;font-size:12px;color:var(--mid);background:transparent;}
-  .tab.on{background:var(--bg3);color:var(--text);box-shadow:0 0 0 1px var(--border);}
-
-  /* Filters */
-  .filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
-  .pill{padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--mid);font-size:11px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;}
-  .pill.on{background:var(--gdim);color:var(--green);border-color:var(--green);}
-  .scan-btn{padding:7px 18px;background:var(--green);border:none;border-radius:8px;color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer;}
-  .scan-btn:disabled{opacity:.4;cursor:not-allowed;}
-
-  /* Progress */
-  .prog{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px;}
-  .prog-bar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin:8px 0;}
-  .prog-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s;}
-  .steps-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
-  .sp{padding:3px 9px;border-radius:20px;font-family:'Space Mono',monospace;font-size:9px;border:1px solid var(--border);}
-  .sp.wait{color:var(--dim)}.sp.act{color:var(--amber);border-color:var(--amber);background:var(--adim);}
-  .sp.ok{color:var(--green);border-color:var(--green);background:var(--gdim);}
-  .sp.err{color:var(--red);border-color:var(--red);}
-
-  /* Table */
-  .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-  .st{font-size:13px;font-weight:700;}
-  .cnt{font-family:'Space Mono',monospace;font-size:10px;color:var(--green);background:var(--gdim);padding:2px 9px;border-radius:20px;}
-  .mf{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
-  .mp{padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--mid);font-size:10px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;}
-  .mp.on{background:var(--gdim);color:var(--green);border-color:var(--green);}
-  .tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;}
-  table{width:100%;border-collapse:collapse;font-size:12px;min-width:960px;}
-  th{padding:9px 11px;text-align:left;font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-family:'Space Mono',monospace;border-bottom:1px solid var(--border);background:var(--bg2);white-space:nowrap;}
-  td{padding:10px 11px;border-bottom:1px solid var(--border);vertical-align:middle;}
-  tr:last-child td{border-bottom:none;}
-  tr:hover td{background:rgba(255,255,255,.01);}
-  .ev-name{font-weight:700;font-size:12px;margin-bottom:2px;}
-  .ev-meta{font-size:9px;color:var(--dim);font-family:'Space Mono',monospace;}
-  .mkt-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:3px;font-family:'Space Mono',monospace;background:var(--bg3);color:var(--mid);border:1px solid var(--border);margin-bottom:3px;}
-  .out-txt{font-size:12px;font-weight:600;}
-  .edge{font-family:'Space Mono',monospace;font-weight:700;}
-  .edge.hi{color:var(--green)}.edge.med{color:var(--amber)}.edge.lo{color:var(--mid)}
-  .ref-odd{font-family:'Space Mono',monospace;font-size:13px;color:var(--mid);}
-  .bc{text-align:center;font-family:'Space Mono',monospace;font-size:13px;color:var(--mid);}
-  .bc.best{font-weight:700;color:var(--green);}
-  .bc.na{opacity:.3;}
-  .rec-tag{display:block;font-size:8px;color:var(--green);margin-bottom:1px;letter-spacing:1px;}
-  .bet-link{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:6px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;text-decoration:none;border:1px solid var(--green);color:var(--green);background:var(--gdim);white-space:nowrap;}
-  .bet-link:hover{background:var(--green);color:#000;}
-  .stake-eur{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--blue);}
-  .stake-pct{font-family:'Space Mono',monospace;font-size:9px;color:var(--mid);margin-top:1px;}
-
-  /* Suivi */
-  .tc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;}
-  .brow{display:grid;grid-template-columns:2fr 1fr .7fr .7fr .6fr .8fr;padding:9px 12px;background:var(--bg3);border-radius:6px;font-size:11px;align-items:center;gap:8px;margin-bottom:5px;}
-  .brow.hd{color:var(--dim);font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;}
-  .spill{padding:3px 8px;border-radius:20px;font-size:9px;font-weight:700;font-family:'Space Mono',monospace;cursor:pointer;border:none;}
-  .spill.won{background:var(--gdim);color:var(--green);}
-  .spill.lost{background:var(--rdim);color:var(--red);}
-  .spill.pending{background:var(--adim);color:var(--amber);}
-  .add-form{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:7px;align-items:end;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
-  .lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-family:'Space Mono',monospace;margin-bottom:4px;display:block;}
-  .inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'Space Mono',monospace;font-size:13px;outline:none;}
-  .inp:focus{border-color:var(--blue);}
-  .add-btn{padding:8px 14px;background:var(--green);border:none;border-radius:6px;color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;}
-
-  /* Calc */
-  .cg{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .cc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;}
-  .ct{font-size:13px;font-weight:700;margin-bottom:14px;}
-  .ig{margin-bottom:10px;}
-  .cr{background:var(--bg3);border-radius:8px;padding:14px;margin-top:14px;}
-  .rr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-  .rr:last-child{margin-bottom:0;padding-top:8px;border-top:1px solid var(--border);}
-  .rl{font-size:11px;color:var(--mid);}
-  .rv{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;}
-  .rv.pos{color:var(--green)}.rv.neg{color:var(--red)}.rv.neu{color:var(--blue)}
-
-  .emp{text-align:center;padding:40px;color:var(--dim);font-family:'Space Mono',monospace;font-size:11px;}
-  #tab-scanner,#tab-calc,#tab-suivi{display:none;}
-  #tab-scanner.active,#tab-calc.active,#tab-suivi.active{display:block;}
-
-  @media(max-width:768px){
-    .stats{grid-template-columns:repeat(2,1fr);}
-    .cg{grid-template-columns:1fr;}
-    .add-form{grid-template-columns:1fr 1fr;}
-  }
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
+:root{--bg:#080c10;--bg2:#0d1219;--bg3:#121920;--border:#1e2d3d;--green:#00e676;--gdim:#00e67618;--amber:#ffab00;--adim:#ffab0018;--red:#ff5252;--rdim:#ff525218;--blue:#29b6f6;--text:#e8f0fe;--dim:#546e7a;--mid:#90a4ae;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;}
+.app{max-width:1400px;margin:0 auto;padding:16px;}
+.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:36px;height:36px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#000;}
+.logo-text{font-size:17px;font-weight:800;}
+.logo-sub{font-size:9px;color:var(--dim);font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;}
+.logo-ver{font-size:9px;color:var(--green);font-family:'Space Mono',monospace;}
+.live-btn{display:none;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:10px;color:var(--green);padding:5px 12px;border:1px solid var(--green);border-radius:20px;cursor:pointer;background:none;}
+.dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px;}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;position:relative;overflow:hidden;}
+.sc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.sc.g::after{background:var(--green)}.sc.a::after{background:var(--amber)}.sc.b::after{background:var(--blue)}
+.sl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-family:'Space Mono',monospace;margin-bottom:5px;}
+.sv{font-size:22px;font-weight:800;line-height:1;}
+.sv.g{color:var(--green)}.sv.a{color:var(--amber)}.sv.b{color:var(--blue)}
+.ss{font-size:9px;color:var(--mid);margin-top:3px;font-family:'Space Mono',monospace;}
+.tabs{display:flex;gap:3px;margin-bottom:16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:3px;width:fit-content;}
+.tab{padding:6px 14px;border-radius:6px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;font-size:12px;color:var(--mid);background:transparent;}
+.tab.on{background:var(--bg3);color:var(--text);box-shadow:0 0 0 1px var(--border);}
+.setup{background:var(--bg2);border:2px solid var(--amber);border-radius:12px;padding:20px;margin-bottom:18px;}
+.setup-title{font-size:15px;font-weight:800;color:var(--amber);margin-bottom:6px;}
+.setup-sub{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:16px;}
+.setup-row{display:flex;gap:8px;align-items:center;margin-top:8px;}
+.url-inp{flex:1;background:var(--bg3);border:2px solid var(--amber);border-radius:8px;padding:9px 12px;color:var(--text);font-family:'Space Mono',monospace;font-size:12px;outline:none;}
+.url-inp:focus{border-color:var(--green);}
+.chk-btn{padding:9px 16px;background:var(--amber);border:none;border-radius:8px;color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;}
+.chk-btn:disabled{opacity:.5;}
+.proxy-ok{background:var(--gdim);border:1px solid var(--green);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--green);font-family:'Space Mono',monospace;margin-top:8px;}
+.proxy-err{background:var(--rdim);border:1px solid var(--red);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--red);font-family:'Space Mono',monospace;margin-top:8px;}
+.proxy-banner{background:var(--gdim);border:1px solid var(--green);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--green);font-family:'Space Mono',monospace;margin-bottom:14px;display:none;justify-content:space-between;align-items:center;}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
+.pill{padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--mid);font-size:11px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;}
+.pill.on{background:var(--gdim);color:var(--green);border-color:var(--green);}
+.scan-btn{padding:7px 18px;background:var(--green);border:none;border-radius:8px;color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer;}
+.scan-btn:disabled{opacity:.4;cursor:not-allowed;}
+.prog{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px;display:none;}
+.prog-bar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin:8px 0;}
+.prog-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s;}
+.steps-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
+.sp{padding:3px 9px;border-radius:20px;font-family:'Space Mono',monospace;font-size:9px;border:1px solid var(--border);}
+.sp.wait{color:var(--dim)}.sp.act{color:var(--amber);border-color:var(--amber);background:var(--adim);}
+.sp.ok{color:var(--green);border-color:var(--green);background:var(--gdim);}
+.sp.err{color:var(--red);border-color:var(--red);}
+.mf-wrap{display:none;gap:14px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
+.mf{display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
+.mf-label{font-size:9px;color:var(--dim);font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:2px;}
+.mp{padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--mid);font-size:10px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;}
+.mp.on{background:var(--gdim);color:var(--green);border-color:var(--green);}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.st{font-size:13px;font-weight:700;}.cnt{font-family:'Space Mono',monospace;font-size:10px;color:var(--green);background:var(--gdim);padding:2px 9px;border-radius:20px;}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;display:none;}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:960px;}
+th{padding:9px 11px;text-align:left;font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-family:'Space Mono',monospace;border-bottom:1px solid var(--border);background:var(--bg2);white-space:nowrap;}
+td{padding:10px 11px;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(255,255,255,.01);}
+.ev-name{font-weight:700;font-size:12px;margin-bottom:2px;}.ev-meta{font-size:9px;color:var(--dim);font-family:'Space Mono',monospace;}
+.mkt-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:3px;font-family:'Space Mono',monospace;background:var(--bg3);color:var(--mid);border:1px solid var(--border);margin-bottom:3px;}
+.out-txt{font-size:12px;font-weight:600;}
+.edge{font-family:'Space Mono',monospace;font-weight:700;}
+.edge.hi{color:var(--green)}.edge.med{color:var(--amber)}.edge.lo{color:var(--mid)}
+.ref-odd{font-family:'Space Mono',monospace;font-size:13px;color:var(--mid);}
+.bc{text-align:center;font-family:'Space Mono',monospace;font-size:13px;color:var(--mid);}
+.bc.best{font-weight:700;color:var(--green);}.bc.na{opacity:.3;}
+.rec-tag{display:block;font-size:8px;color:var(--green);margin-bottom:1px;letter-spacing:1px;}
+.bet-link{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:6px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;text-decoration:none;border:1px solid var(--green);color:var(--green);background:var(--gdim);}
+.bet-link:hover{background:var(--green);color:#000;}
+.stake-eur{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--blue);}
+.stake-pct{font-family:'Space Mono',monospace;font-size:9px;color:var(--mid);margin-top:1px;}
+.meth-pin{background:var(--adim);color:var(--amber);font-size:9px;padding:1px 6px;border-radius:3px;font-family:'Space Mono',monospace;font-weight:700;margin-left:5px;}
+.meth-con{background:var(--gdim);color:var(--green);font-size:9px;padding:1px 6px;border-radius:3px;font-family:'Space Mono',monospace;font-weight:700;margin-left:5px;}
+.tc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.brow{display:grid;grid-template-columns:2fr 1fr .7fr .7fr .6fr .8fr;padding:9px 12px;background:var(--bg3);border-radius:6px;font-size:11px;align-items:center;gap:8px;margin-bottom:5px;}
+.brow.hd{color:var(--dim);font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:1px;}
+.spill{padding:3px 8px;border-radius:20px;font-size:9px;font-weight:700;font-family:'Space Mono',monospace;cursor:pointer;border:none;}
+.spill.won{background:var(--gdim);color:var(--green);}.spill.lost{background:var(--rdim);color:var(--red);}.spill.pending{background:var(--adim);color:var(--amber);}
+.add-form{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:7px;align-items:end;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+.lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-family:'Space Mono',monospace;margin-bottom:4px;display:block;}
+.inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'Space Mono',monospace;font-size:13px;outline:none;}
+.inp:focus{border-color:var(--blue);}
+.add-btn{padding:8px 14px;background:var(--green);border:none;border-radius:6px;color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.cc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.ct{font-size:13px;font-weight:700;margin-bottom:14px;}
+.ig{margin-bottom:10px;}
+.cr{background:var(--bg3);border-radius:8px;padding:14px;margin-top:14px;}
+.rr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.rr:last-child{margin-bottom:0;padding-top:8px;border-top:1px solid var(--border);}
+.rl{font-size:11px;color:var(--mid);}
+.rv{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;}
+.rv.pos{color:var(--green)}.rv.neg{color:var(--red)}.rv.neu{color:var(--blue)}
+.emp{text-align:center;padding:40px;color:var(--dim);font-family:'Space Mono',monospace;font-size:11px;}
+#tab-scanner,#tab-calc,#tab-suivi{display:none;}
+#tab-scanner.active,#tab-calc.active,#tab-suivi.active{display:block;}
+@media(max-width:768px){.stats{grid-template-columns:repeat(2,1fr)}.cg{grid-template-columns:1fr}.add-form{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <div class="app">
 
-  <!-- Header -->
   <div class="hdr">
     <div class="logo">
       <div class="logo-icon">📈</div>
       <div>
         <div class="logo-text">ValueEdge</div>
         <div class="logo-sub">Winamax · Betclic · Unibet · PMU</div>
-        <div style="font-size:9px;color:var(--green);font-family:monospace">v7.9</div>
+        <div class="logo-ver">v8.0</div>
       </div>
     </div>
-    <span id="quotaBadge" style="font-size:10px;color:var(--dim);font-family:monospace;margin-right:8px"></span>
-  <button class="live-btn" id="refreshBtn" onclick="startScan()" style="display:none">
-      <div class="dot"></div>ACTUALISER
-    </button>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span id="quotaBadge" style="font-size:10px;color:var(--dim);font-family:monospace"></span>
+      <button class="live-btn" id="refreshBtn" onclick="startScan()">
+        <div class="dot"></div>ACTUALISER
+      </button>
+    </div>
   </div>
 
-  <!-- Stats -->
   <div class="stats">
-    <div class="sc g"><div class="sl">Value Bets</div><div class="sv g" id="statVB">0</div><div class="ss" id="statEvents">0 events</div></div>
+    <div class="sc g"><div class="sl">Value Bets</div><div class="sv g" id="statVB">0</div><div class="ss" id="statEvents">—</div></div>
     <div class="sc a"><div class="sl">Edge moyen</div><div class="sv a" id="statEdge">—</div><div class="ss">EV espéré</div></div>
     <div class="sc b"><div class="sl">Meilleur edge</div><div class="sv b" id="statBest">—</div><div class="ss" id="statBestBook">—</div></div>
-    <div class="sc p"><div class="sl">Bankroll</div><div class="sv p" id="statBR">1 000€</div><div class="ss">départ 1000€</div></div>
-    <div class="sc" id="scPnl" style="border-top:2px solid var(--mid)"><div class="sl">P&L</div><div class="sv" id="statPnl">0€</div><div class="ss" id="statRoi">ROI 0%</div></div>
+    <div class="sc g"><div class="sl">Bankroll</div><div class="sv g" id="statBR">1 000€</div><div class="ss">départ 1000€</div></div>
+    <div class="sc" id="scPnl" style="border-top:2px solid var(--mid)"><div class="sl">P&amp;L</div><div class="sv" id="statPnl">0€</div><div class="ss" id="statRoi">ROI 0%</div></div>
   </div>
 
-  <!-- Tabs -->
   <div class="tabs">
     <button class="tab on" onclick="showTab('scanner')">🔍 Scanner</button>
     <button class="tab" onclick="showTab('calc')">🧮 Calculateur</button>
     <button class="tab" id="suiviTabBtn" onclick="showTab('suivi')">📋 Suivi</button>
   </div>
 
-  <!-- SCANNER -->
   <div id="tab-scanner" class="active">
-
-    <!-- Setup proxy -->
     <div class="setup" id="setupBox">
       <div class="setup-title">☁️ Connecte ton Cloudflare Worker</div>
-      <div class="setup-sub">
-        Colle l'URL de ton Worker Cloudflare ci-dessous.<br>
-        Format attendu : <code style="color:var(--amber)">https://valueedge-proxy.TONNOM.workers.dev</code>
-      </div>
+      <div class="setup-sub">Colle l'URL de ton Worker (ex: <code style="color:var(--amber)">https://valueedge-proxy.tonnom.workers.dev</code>)</div>
       <div class="setup-row">
         <input class="url-inp" id="proxyUrlInput" placeholder="https://valueedge-proxy.tonnom.workers.dev" />
         <button class="chk-btn" id="checkBtn" onclick="checkProxy()">🔌 Vérifier</button>
@@ -190,17 +153,14 @@
       <div id="proxyMsg"></div>
     </div>
 
-    <!-- Connected banner -->
-    <div class="proxy-connected" id="connectedBanner" style="display:none">
-      <span>✓ Worker connecté — données live The Odds API</span>
-      <button class="reset-link" onclick="resetProxy()">Changer d'URL</button>
+    <div class="proxy-banner" id="connBanner">
+      <span>✓ Worker connecté — données live</span>
+      <span style="color:var(--dim);font-size:10px;cursor:pointer" onclick="resetProxy()">Changer d'URL</span>
     </div>
 
-    <!-- Sport filters -->
     <div class="filters" id="sportFilters"></div>
 
-    <!-- Progress -->
-    <div class="prog" id="progBox" style="display:none">
+    <div class="prog" id="progBox">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <b id="progTitle" style="font-size:13px">Scan en cours…</b>
         <span id="progMsg" style="font-size:10px;color:var(--mid);font-family:monospace"></span>
@@ -209,56 +169,46 @@
       <div class="steps-row" id="stepsRow"></div>
     </div>
 
-    <!-- Market filter -->
-    <div id="mktFilters" style="display:none;flex-wrap:wrap;gap:14px;margin-bottom:12px;align-items:center">
-      <div class="mf" style="margin-bottom:0">
-        <span style="font-size:9px;color:var(--dim);font-family:monospace;text-transform:uppercase;letter-spacing:2px">Marché :</span>
+    <div class="mf-wrap" id="mfWrap">
+      <div class="mf">
+        <span class="mf-label">Marché :</span>
         <button class="mp on" onclick="setMktFilter('all')">Tous</button>
         <button class="mp" onclick="setMktFilter('match')">Match</button>
         <button class="mp" onclick="setMktFilter('player')">Joueurs</button>
       </div>
-      <div style="display:flex;gap:5px;align-items:center">
-        <span style="font-size:9px;color:var(--dim);font-family:monospace;text-transform:uppercase;letter-spacing:2px">Méthode :</span>
+      <div class="mf">
+        <span class="mf-label">Méthode :</span>
         <button class="mp on" id="mthAll" onclick="setMethodFilter('all')">Toutes</button>
         <button class="mp" id="mthPin" onclick="setMethodFilter('pinnacle')">🎯 Pinnacle</button>
         <button class="mp" id="mthCon" onclick="setMethodFilter('consensus')">📊 Consensus</button>
       </div>
     </div>
 
-    <div id="resultsHeader" style="display:none">
+    <div id="scanResults" style="display:none">
       <div class="sh">
         <div class="st">Value Bets — Winamax · Betclic · Unibet · PMU</div>
         <div class="cnt" id="vbCount">0 opportunités</div>
       </div>
     </div>
 
-    <div class="tbl-wrap" id="tblWrap" style="display:none">
+    <div class="tbl-wrap" id="tblWrap">
       <table>
-        <thead>
-          <tr>
-            <th>Événement</th>
-            <th>Marché / Issue</th>
-            <th>Edge EV</th>
-            <th>Réf (Sharp)</th>
-            <th style="text-align:center;color:#e63946">Winamax</th>
-            <th style="text-align:center;color:#2196f3">Betclic</th>
-            <th style="text-align:center;color:#00c853">Unibet</th>
-            <th style="text-align:center;color:#ff9800">PMU</th>
-            <th>Mise Kelly ¼</th>
-            <th>Parier</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th>Événement</th><th>Marché / Issue</th><th>Edge EV</th><th>Réf (Sharp)</th>
+          <th style="text-align:center;color:#e63946">Winamax</th>
+          <th style="text-align:center;color:#2196f3">Betclic</th>
+          <th style="text-align:center;color:#00c853">Unibet</th>
+          <th style="text-align:center;color:#ff9800">PMU</th>
+          <th>Mise Kelly ¼</th><th>Parier</th>
+        </tr></thead>
         <tbody id="vbTbody"></tbody>
       </table>
     </div>
 
     <div class="emp" id="emptyMsg" style="display:none">Aucune value bet détectée actuellement.</div>
-    <div class="emp" id="startMsg">Sélectionne des sports et clique sur 🔄 Scanner.</div>
-  <div id="debugDump" style="display:none;background:var(--bg2);border:1px solid var(--amber);border-radius:8px;padding:12px;margin-top:10px;font-family:monospace;font-size:10px;line-height:1.7;color:var(--text);word-break:break-all"></div>
-    <div id="debugBox" style="display:none;background:var(--bg2);border:1px solid var(--amber);border-radius:10px;padding:16px;margin-top:14px"></div>
+    <div class="emp" id="startMsg">Connecte ton Worker et clique sur 🔄 Scanner.</div>
   </div>
 
-  <!-- CALCULATEUR -->
   <div id="tab-calc">
     <div class="cg">
       <div class="cc">
@@ -269,24 +219,23 @@
         <div class="cr" id="calcResult"></div>
       </div>
       <div class="cc">
-        <div class="ct">📖 Méthode Value Betting</div>
+        <div class="ct">📖 Méthode</div>
         <div style="font-size:12px;line-height:1.8;color:var(--mid)">
-          <p style="margin-bottom:10px"><b style="color:var(--text)">Principe</b> — parier quand la cote offerte dépasse la vraie probabilité.</p>
+          <p style="margin-bottom:10px"><b style="color:var(--text)">Value betting</b> — parier uniquement quand la cote offerte dépasse la vraie probabilité.</p>
           <div style="background:var(--bg3);border-radius:7px;padding:12px;margin-bottom:10px;font-family:monospace;font-size:10px;line-height:1.8">
-            <span style="color:var(--dim)">// Prob no-vig (Pinnacle)</span><br>
-            <span style="color:var(--green)">P = P_impl / ΣP_impl</span><br>
-            <span style="color:var(--dim)">// Expected Value</span><br>
+            <span style="color:var(--amber)">// 🎯 Pinnacle no-vig</span><br>
+            <span style="color:var(--green)">P = 1 / no_vig_cote</span><br>
+            <span style="color:var(--amber)">// 📊 Consensus multi-books</span><br>
+            <span style="color:var(--green)">P = moy_harmonique(cotes)</span><br>
             <span style="color:var(--green)">EV = (P × cote) - 1</span><br>
-            <span style="color:var(--dim)">// Kelly ¼</span><br>
-            <span style="color:var(--green)">f = [(P×cote-1)/(cote-1)] × 0.25</span>
+            <span style="color:var(--green)">Mise = EV/(cote-1) × 0.25 × Bankroll</span>
           </div>
-          <p><b style="color:var(--amber)">⚠ Long terme</b> — rentable sur 200+ paris. Variance court terme élevée.</p>
+          <p><b style="color:var(--amber)">⚠ Long terme</b> — rentable sur 200+ paris minimum.</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SUIVI -->
   <div id="tab-suivi">
     <div class="tc">
       <div style="display:flex;justify-content:space-between;margin-bottom:16px">
@@ -312,1411 +261,473 @@
   </div>
 
 </div>
-
 <script>
-// ─── Config ───────────────────────────────────────────────────────────────────
 const USER_BOOKS = [
-  {key:"winamax_fr", label:"Winamax", url:"https://www.winamax.fr/paris-sportifs/"},
-  {key:"betclic_fr", label:"Betclic", url:"https://www.betclic.fr/"},
-  {key:"unibet_fr",  label:"Unibet",  url:"https://www.unibet.fr/"},
-  {key:"pmu_fr",     label:"PMU",     url:"https://www.pmu.fr/paris-sportifs/"},
+  {key:"winamax_fr",label:"Winamax",color:"#e63946",url:"https://www.winamax.fr/paris-sportifs/"},
+  {key:"betclic_fr",label:"Betclic",color:"#2196f3",url:"https://www.betclic.fr/"},
+  {key:"unibet_fr", label:"Unibet", color:"#00c853",url:"https://www.unibet.fr/"},
+  {key:"pmu_fr",    label:"PMU",    color:"#ff9800",url:"https://www.pmu.fr/paris-sportifs/"},
 ];
-const USER_BOOK_KEYS = new Set(USER_BOOKS.map(b=>b.key));
-const SHARP_KEYS = new Set(["pinnacle","betfair","betfair_ex_eu","matchbook","marathonbet"]);
+const USER_BOOK_KEYS = new Set(USER_BOOKS.map(function(b){return b.key;}));
+const SOFT_LABELS = {winamax_fr:"Winamax",betclic_fr:"Betclic",unibet_fr:"Unibet",pmu_fr:"PMU"};
+const SHARP_KEYS  = new Set(["pinnacle","betfair","betfair_ex_eu","matchbook","marathonbet"]);
 const SPORTS = [
-  {key:"ligue1",      label:"⚽ Ligue 1"},
-  {key:"epl",         label:"⚽ Premier League"},
-  {key:"laliga",      label:"⚽ La Liga"},
-  {key:"ucl",         label:"⚽ Champions League"},
-  {key:"bundesliga",  label:"⚽ Bundesliga"},
-  {key:"seriea",      label:"⚽ Serie A"},
-  {key:"nba",         label:"🏀 NBA"},
-  {key:"roland_atp",  label:"🎾 Roland Garros ATP"},
-  {key:"nhl",         label:"🏒 NHL"},
+  {key:"ligue1",    label:"⚽ Ligue 1"},
+  {key:"epl",       label:"⚽ Premier League"},
+  {key:"laliga",    label:"⚽ La Liga"},
+  {key:"ucl",       label:"⚽ Champions League"},
+  {key:"bundesliga",label:"⚽ Bundesliga"},
+  {key:"seriea",    label:"⚽ Serie A"},
+  {key:"nba",       label:"🏀 NBA"},
+  {key:"roland_atp",label:"🎾 Roland Garros ATP"},
+  {key:"nhl",       label:"🏒 NHL"},
 ];
 const MARKET_LABELS = {
-  h2h:"🏆 Vainqueur",spreads:"📐 Handicap",totals:"🔢 Total",btts:"⚽ Les deux marquent",
-  player_points:"🏀 Points joueur",player_rebounds:"🏀 Rebonds",player_assists:"🏀 Passes",
-  player_threes:"🏀 3-Points",player_goals:"🥅 Buts joueur",player_shots_on_goal:"🏒 Tirs cadrés",
+  h2h:"🏆 Vainqueur",spreads:"📐 Handicap",totals:"🔢 Total",
+  player_points:"🏀 Points",player_rebounds:"🏀 Rebonds",player_assists:"🏀 Passes",
+  player_goals:"🥅 Buts",player_shots_on_goal:"🏒 Tirs cadrés",
 };
-function getMarkets(k){
-  // Seuls h2h et totals sont garantis en région EU
-  if(k.startsWith("tennis")) return "h2h";
-  return "h2h,totals";
-}
 
-// ─── State ────────────────────────────────────────────────────────────────────
-let proxyUrl = localStorage.getItem("proxyUrl") || "";
-let proxyOk  = false;
-let activeSports = new Set(["soccer_france_ligue1","soccer_epl","basketball_nba"]);
-let allEvents = [];
-let allVB = [];
-let mktFilter = "all";
-let methodFilter = "all";
-let bets = JSON.parse(localStorage.getItem("bets")||"[]");
-let bankroll = 1000;
+var proxyUrl    = localStorage.getItem("proxyUrl") || "";
+var proxyOk     = false;
+var activeSports= new Set(["ligue1","epl","nba","nhl"]);
+var mktFilter   = "all";
+var methodFilter= "all";
+var allEvents   = [];
+var allVB       = [];
+var bets        = JSON.parse(localStorage.getItem("bets") || "[]");
+var bankroll    = 1000;
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
-window.onload = () => {
+window.onload = function() {
   buildSportFilters();
   calcKelly();
   renderBets();
-  if(proxyUrl){
+  if (proxyUrl) {
     document.getElementById("proxyUrlInput").value = proxyUrl;
     verifyAndConnect(proxyUrl);
   }
 };
 
-function buildSportFilters(){
-  const c = document.getElementById("sportFilters");
-  SPORTS.forEach(s=>{
-    const b=document.createElement("button");
-    b.className="pill"+(activeSports.has(s.key)?" on":"");
-    b.textContent=s.label;
-    b.onclick=()=>{
-      if(activeSports.has(s.key)){if(activeSports.size>1)activeSports.delete(s.key);}
+function buildSportFilters() {
+  var c = document.getElementById("sportFilters");
+  SPORTS.forEach(function(s) {
+    var b = document.createElement("button");
+    b.className = "pill" + (activeSports.has(s.key) ? " on" : "");
+    b.textContent = s.label;
+    b.onclick = function() {
+      if (activeSports.has(s.key)) { if (activeSports.size > 1) activeSports.delete(s.key); }
       else activeSports.add(s.key);
-      b.className="pill"+(activeSports.has(s.key)?" on":"");
+      b.className = "pill" + (activeSports.has(s.key) ? " on" : "");
     };
     c.appendChild(b);
   });
-  const btn=document.createElement("button");
-  btn.className="scan-btn";btn.id="scanBtn";
-  btn.textContent="🔄 Scanner";btn.disabled=true;
-  btn.onclick=startScan;
+  var btn = document.createElement("button");
+  btn.className = "scan-btn"; btn.id = "scanBtn";
+  btn.textContent = "🔄 Scanner"; btn.disabled = true;
+  btn.onclick = startScan;
   c.appendChild(btn);
 }
 
-// ─── Proxy ────────────────────────────────────────────────────────────────────
-async function checkProxy(){
-  const url=document.getElementById("proxyUrlInput").value.trim().replace(/\/+$/,"");
-  if(!url)return;
-  document.getElementById("checkBtn").disabled=true;
-  document.getElementById("checkBtn").textContent="⏳…";
-  document.getElementById("proxyMsg").innerHTML="";
-  await verifyAndConnect(url);
-  document.getElementById("checkBtn").disabled=false;
-  document.getElementById("checkBtn").textContent="🔌 Vérifier";
+function checkProxy() {
+  var url = document.getElementById("proxyUrlInput").value.trim().replace(/\/+$/, "");
+  if (!url) { alert("Colle d'abord l'URL de ton Worker"); return; }
+  document.getElementById("checkBtn").disabled = true;
+  document.getElementById("checkBtn").textContent = "⏳…";
+  document.getElementById("proxyMsg").innerHTML = "";
+  verifyAndConnect(url).then(function() {
+    document.getElementById("checkBtn").disabled = false;
+    document.getElementById("checkBtn").textContent = "🔌 Vérifier";
+  }).catch(function() {
+    document.getElementById("checkBtn").disabled = false;
+    document.getElementById("checkBtn").textContent = "🔌 Vérifier";
+  });
 }
 
-async function verifyAndConnect(url){
-  try{
-    const r=await fetch(url+"/health",{signal:AbortSignal.timeout(6000)});
-    const d=await r.json();
-    if(r.ok && (d.ok||d.status==="ok"||d.worker)){
-      proxyUrl=url;
-      proxyOk=true;
-      localStorage.setItem("proxyUrl",url);
-      document.getElementById("setupBox").style.display="none";
-      document.getElementById("connectedBanner").style.display="flex";
-      document.getElementById("scanBtn").disabled=false;
-      document.getElementById("refreshBtn").style.display="flex";
-      document.getElementById("startMsg").style.display="block";
-    } else {
-      showProxyError("Réponse inattendue du Worker : "+JSON.stringify(d).slice(0,80));
-    }
-  }catch(e){
-    showProxyError("Impossible de joindre le Worker : "+e.message);
-  }
-}
-
-function showProxyError(msg){
-  document.getElementById("proxyMsg").innerHTML=`<div class="proxy-err">✗ ${msg}</div>`;
-  proxyOk=false;
-}
-
-function resetProxy(){
-  proxyOk=false;
-  localStorage.removeItem("proxyUrl");
-  document.getElementById("connectedBanner").style.display="none";
-  document.getElementById("setupBox").style.display="block";
-  document.getElementById("scanBtn").disabled=true;
-  document.getElementById("refreshBtn").style.display="none";
-}
-
-// ─── Scan ─────────────────────────────────────────────────────────────────────
-async function startScan(){
-  if(!proxyOk)return;
-  allEvents=[];allVB=[];
-  document.getElementById("startMsg").style.display="none";
-  document.getElementById("emptyMsg").style.display="none";
-  document.getElementById("tblWrap").style.display="none";
-  document.getElementById("resultsHeader").style.display="none";
-  document.getElementById("mktFilters").style.display="none";
-
-  const box=document.getElementById("progBox");
-  const fill=document.getElementById("progFill");
-  const stepsRow=document.getElementById("stepsRow");
-  const msg=document.getElementById("progMsg");
-  const title=document.getElementById("progTitle");
-
-  box.style.display="block";
-  fill.style.width="0%";
-  title.textContent="Scan en cours…";
-  stepsRow.innerHTML="";
-  msg.textContent="Scan en cours…";
-
-  // Scanner directement les sports sélectionnés (pas de pré-vérification)
-  const sports = SPORTS.filter(s => activeSports.has(s.key));
-  stepsRow.innerHTML = sports.map(s=>`<span class="sp wait" id="step-${s.key}">○ ${s.label}</span>`).join("");
-
-  // Scanner sport par sport
-  let done=0;
-  for(const s of sports){
-    const el=document.getElementById("step-"+s.key);
-    el.className="sp act";el.textContent="⟳ "+s.label;
-    msg.textContent=s.label+"…";
-    try{
-      // Worker reçoit le sport alias et fait la requête ciblée (bookmakers=pinnacle,winamax_fr,...)
-      const r=await fetch(`${proxyUrl}/odds/${s.key}`,{signal:AbortSignal.timeout(20000)});
-      if(!r.ok){
-        const body=await r.text().catch(()=>"");
-        const err=JSON.parse(body||"{}");
-        el.className="sp";el.style.color="var(--dim)";
-        el.textContent=`○ ${s.label} (${err.error||"HTTP "+r.status})`;
-        done++;fill.style.width=(done/sports.length*100)+"%";
-        continue;
-      }
-      const json=await r.json();
-      const matches=json.matches||[];
-      // Convertir le format worker → format interne
-      matches.forEach(m=>{
-        allEvents.push({
-          id:m.id, home_team:m.homeTeam, away_team:m.awayTeam,
-          commence_time:m.commence, sport_title:s.label,
-          bookmakers:[], // déjà parsé côté worker
-          _parsed:m,     // données pré-calculées
-        });
-      });
-      if(json.remaining) document.getElementById("quotaBadge").textContent="Quota: "+json.remaining+" req restantes";
-      if(matches.length===0){
-        el.className="sp";el.style.color="var(--dim)";el.textContent=`○ ${s.label} · 0 match`;
+function verifyAndConnect(url) {
+  return fetch(url + "/health", {signal: AbortSignal.timeout(8000)})
+    .then(function(r) { return r.json().then(function(d) { return {ok: r.ok, d: d}; }); })
+    .then(function(res) {
+      if (res.ok && (res.d.ok || res.d.worker)) {
+        proxyUrl = url; proxyOk = true;
+        localStorage.setItem("proxyUrl", url);
+        document.getElementById("setupBox").style.display = "none";
+        document.getElementById("connBanner").style.display = "flex";
+        document.getElementById("scanBtn").disabled = false;
+        document.getElementById("refreshBtn").style.display = "flex";
+        document.getElementById("startMsg").style.display = "none";
       } else {
-        const vbCount=matches.filter(m=>m.hasValue).length;
-        el.className="sp ok";
-        el.textContent=`✓ ${s.label} · ${matches.length} matchs · ${vbCount} VB`;
+        document.getElementById("proxyMsg").innerHTML = '<div class="proxy-err">✗ Réponse inattendue: ' + JSON.stringify(res.d).slice(0,80) + '</div>';
       }
-    }catch(e){
-      el.className="sp err";el.textContent=`✗ ${s.label}: ${e.message}`;
-    }
-    done++;
-    fill.style.width=(done/sports.length*100)+"%";
-  }
-
-  msg.textContent=allEvents.length+" événements récupérés";
-  title.textContent="Scan terminé";
-
-  allVB = detectVB(allEvents, bankroll);
-
-  msg.textContent = allEvents.length + " événements récupérés";
-  title.textContent = "Scan terminé";
-  renderVB();
-  try { renderOddsDetail(); } catch(e) { console.warn("renderOddsDetail:", e); }
-  updateStats();
-}
-
-function renderDebug(){
-  const userKeys  = new Set(["winamax","betclic","unibet","pmu"]);
-  const sharpKeys = new Set(["pinnacle","betfair","betfair_ex_eu","matchbook","marathonbet"]);
-
-  // Collecter tous les bookmakers présents dans les données
-  const bookMap = {};
-  allEvents.forEach(ev=>{
-    (ev.bookmakers||[]).forEach(b=>{
-      if(!bookMap[b.key]) bookMap[b.key]={title:b.title, count:0};
-      bookMap[b.key].count++;
+    })
+    .catch(function(e) {
+      document.getElementById("proxyMsg").innerHTML = '<div class="proxy-err">✗ Erreur: ' + e.message + '</div>';
     });
-  });
-  const entries = Object.entries(bookMap).sort((a,b)=>b[1].count-a[1].count);
-  const matchedUser = entries.filter(([k])=>userKeys.has(k));
+}
 
-  // Injecter dans la zone de progression déjà visible
-  const progBox = document.getElementById("progBox");
-  if(!progBox) return;
+function resetProxy() {
+  proxyOk = false; localStorage.removeItem("proxyUrl");
+  document.getElementById("connBanner").style.display = "none";
+  document.getElementById("setupBox").style.display = "block";
+  document.getElementById("scanBtn").disabled = true;
+  document.getElementById("refreshBtn").style.display = "none";
+}
 
-  // Supprimer ancien debug s'il existe
-  const old = document.getElementById("debugInline");
-  if(old) old.remove();
+function startScan() {
+  if (!proxyOk) return;
+  allEvents = []; allVB = [];
+  document.getElementById("startMsg").style.display = "none";
+  document.getElementById("emptyMsg").style.display = "none";
+  document.getElementById("tblWrap").style.display = "none";
+  document.getElementById("scanResults").style.display = "none";
+  document.getElementById("mfWrap").style.display = "none";
 
-  const div = document.createElement("div");
-  div.id = "debugInline";
-  div.style.cssText = "margin-top:12px;padding-top:12px;border-top:1px solid var(--border)";
+  var sports = SPORTS.filter(function(s) { return activeSports.has(s.key); });
+  var box = document.getElementById("progBox");
+  var fill = document.getElementById("progFill");
+  var stepsRow = document.getElementById("stepsRow");
+  var msg = document.getElementById("progMsg");
+  var title = document.getElementById("progTitle");
 
-  // Titre
-  div.innerHTML = `<div style="font-size:10px;color:var(--amber);font-family:monospace;font-weight:700;margin-bottom:8px">
-    🔧 BOOKMAKERS DANS LES DONNÉES (${allEvents.length} events)</div>`;
+  box.style.display = "block";
+  fill.style.width = "0%";
+  title.textContent = "Scan en cours…";
+  stepsRow.innerHTML = sports.map(function(s) {
+    return '<span class="sp wait" id="step-' + s.key + '">○ ' + s.label + '</span>';
+  }).join("");
 
-  // Alerte si aucun bookmaker utilisateur trouvé
-  if(matchedUser.length === 0){
-    div.innerHTML += `<div style="background:var(--rdim);border:1px solid var(--red);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--red);margin-bottom:8px;font-family:monospace;line-height:1.5">
-      ⚠ Winamax, Betclic, Unibet, PMU sont ABSENTS des données.<br>
-      The Odds API ne couvre pas ces bookmakers → 0 value bet possible.</div>`;
-  } else {
-    div.innerHTML += `<div style="background:var(--gdim);border:1px solid var(--green);border-radius:6px;padding:6px 10px;font-size:11px;color:var(--green);margin-bottom:8px;font-family:monospace">
-      ✓ Bookmakers trouvés : ${matchedUser.map(([k,v])=>v.title).join(", ")}</div>`;
+  var idx = 0;
+  function doNext() {
+    if (idx >= sports.length) {
+      msg.textContent = allEvents.length + " événements récupérés";
+      title.textContent = "Scan terminé";
+      allVB = detectVB(allEvents, bankroll);
+      renderVB();
+      updateStats();
+      return;
+    }
+    var s = sports[idx];
+    var el = document.getElementById("step-" + s.key);
+    el.className = "sp act"; el.textContent = "⟳ " + s.label;
+    msg.textContent = s.label + "…";
+
+    fetch(proxyUrl + "/odds/" + s.key, {signal: AbortSignal.timeout(20000)})
+      .then(function(r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function(json) {
+        var matches = json.matches || [];
+        matches.forEach(function(m) {
+          allEvents.push({id:m.id,home_team:m.homeTeam,away_team:m.awayTeam,commence_time:m.commence,sport_title:s.label,_parsed:m});
+        });
+        if (json.remaining) document.getElementById("quotaBadge").textContent = json.remaining + " req restantes";
+        var vbCount = matches.filter(function(m){return m.hasValue;}).length;
+        el.className = "sp ok";
+        el.textContent = "✓ " + s.label + " · " + matches.length + " matchs · " + vbCount + " VB";
+      })
+      .catch(function(e) {
+        el.className = "sp err";
+        el.textContent = "✗ " + s.label + ": " + e.message;
+      })
+      .finally(function() {
+        idx++;
+        fill.style.width = (idx/sports.length*100) + "%";
+        doNext();
+      });
   }
-
-  // Liste tous les bookmakers
-  div.innerHTML += `<div style="font-size:9px;color:var(--dim);font-family:monospace;margin-bottom:5px">TOUS LES BOOKMAKERS RETOURNÉS PAR L'API :</div>`;
-  div.innerHTML += `<div style="display:flex;flex-wrap:wrap;gap:4px">${
-    entries.map(([k,v])=>{
-      const isUser  = userKeys.has(k);
-      const isSharp = sharpKeys.has(k);
-      const col   = isUser?"var(--green)":isSharp?"var(--amber)":"var(--mid)";
-      const bg    = isUser?"var(--gdim)":isSharp?"var(--adim)":"var(--bg3)";
-      const bdr   = isUser?"var(--green)":isSharp?"var(--amber)":"var(--border)";
-      return `<span style="padding:2px 8px;border-radius:20px;border:1px solid ${bdr};background:${bg};color:${col};font-family:monospace;font-size:9px">${isUser?"✓ ":isSharp?"🎯 ":""}${k}&nbsp;(${v.count})</span>`;
-    }).join("")
-  }</div>`;
-
-  progBox.appendChild(div);
+  doNext();
 }
 
-// ─── Value bets ───────────────────────────────────────────────────────────────
-function noVig(odds){const p=odds.map(o=>1/o),s=p.reduce((a,b)=>a+b,0);return p.map(x=>x/s);}
-function normalize(s){
-  return (s||"").toLowerCase()
-    .normalize("NFD").replace(/[̀-ͯ]/g,"")  // accents
-    .replace(/[^a-z0-9]/g," ").replace(/\s+/g," ").trim();
+function normalize(s) {
+  return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g," ").replace(/\s+/g," ").trim();
 }
-function oKey(o){
-  // Normalise pour matcher "Montreal" == "Montréal", "Man Utd" == "Manchester Utd"
-  return normalize(o.name)+"|"+(o.description?normalize(o.description):"")+"|"+(o.point??"");
-}
-function oLabel(o){
-  if(o.description&&o.point!==undefined)return`${o.description} ${o.name} ${o.point}`;
-  if(o.point!==undefined)return`${o.name} ${o.point>=0?"+":""}${o.point}`;
-  return o.name;
+function noVig(odds) {
+  var p = odds.map(function(o){return 1/o;}), s = p.reduce(function(a,b){return a+b;},0);
+  return p.map(function(x){return x/s;});
 }
 
-
-
-// ─── Consensus no-vig ────────────────────────────────────────────────────────
-// Utilise la moyenne harmonique des cotes de TOUS les books disponibles
-// Beaucoup plus robuste que Pinnacle seul quand les données sont en cache
-function consensusProb(books, mKey, outName) {
-  const odds = [];
-  books.forEach(bk => {
-    const mkt = bk.markets?.find(m => m.key === mKey);
-    if (!mkt) return;
-    const o = mkt.outcomes.find(o2 => normalize(o2.name) === normalize(outName));
-    if (o && o.price > 1.01) odds.push(o.price);
-  });
-  if (odds.length < 2) return null;
-  // Moyenne harmonique des probs implicites = prob consensus brute
-  const rawProb = odds.length / odds.reduce((s, o) => s + 1/o, 0);
-  // Ajustement conservateur -3% pour tenir compte des marges résiduelles
-  return rawProb * 0.97;
-}
-
-function detectVB(events, bankroll) {
-  const out = [], seen = new Set();
-
-  for (const ev of events) {
-    // ── Branche A : données pré-calculées par le Worker (Pinnacle no-vig) ──
+function detectVB(events, br) {
+  var out = [], seen = new Set();
+  for (var ei = 0; ei < events.length; ei++) {
+    var ev = events[ei];
     if (ev._parsed) {
-      const m = ev._parsed;
-      for (const outcome of (m.markets?.h2h?.outcomes || [])) {
+      var m = ev._parsed;
+      var outcomes = (m.markets && m.markets.h2h && m.markets.h2h.outcomes) || [];
+      for (var oi = 0; oi < outcomes.length; oi++) {
+        var outcome = outcomes[oi];
         if (!outcome.trueProb || !outcome.softOdds) continue;
-
-        let tp;
-        if (outcome.trueProb > 100) {
-          tp = 100 / outcome.trueProb / 100;
-        } else {
-          tp = outcome.trueProb / 100;
-        }
-
-        // Meilleur bookmaker uniquement (EV max)
-        let bestBm = null, bestOdd = 0, bestEv = 1.0;
-        for (const [bm, odd] of Object.entries(outcome.softOdds)) {
+        var tp = outcome.trueProb / 100;
+        if (tp <= 0 || tp >= 1) continue;
+        var bestBm = null, bestOdd = 0, bestEv = 1.0;
+        var bmKeys = Object.keys(outcome.softOdds);
+        for (var bi = 0; bi < bmKeys.length; bi++) {
+          var bm = bmKeys[bi], odd = outcome.softOdds[bm];
           if (!odd || odd <= 1) continue;
-          const evPct = (tp * odd - 1) * 100;
+          var evPct = (tp * odd - 1) * 100;
           if (evPct > bestEv) { bestEv = evPct; bestOdd = odd; bestBm = bm; }
         }
         if (!bestBm) continue;
-
-        const uid = `pinnacle-${m.id}-${normalize(outcome.label)}`;
+        var uid = "pin-" + m.id + "-" + normalize(outcome.label);
         if (seen.has(uid)) continue;
         seen.add(uid);
-
-        const kelly = Math.max(0, (tp * bestOdd - 1) / (bestOdd - 1)) * 0.25;
+        var kelly = Math.max(0, (tp*bestOdd-1)/(bestOdd-1)) * 0.25;
         out.push({
-          id: uid,
-          sport: m.sport, event: `${m.homeTeam} vs ${m.awayTeam}`,
-          date: m.commence, market: "h2h", marketLabel: "🏆 Vainqueur",
-          outcome: outcome.label,
-          bookeKey: bestBm, bookie: SOFT_LABELS[bestBm] || bestBm,
-          odd: bestOdd, refOdd: outcome.noVig || null,
-          refSource: m.refSource || "Pinnacle",
-          pinnacleAge: m.pinnacleAge != null ? m.pinnacleAge : null,
-          bookOdds: outcome.softOdds,
-          trueProb: tp, ev: bestEv, kelly,
-          stakeEur: Math.max(Math.round(kelly * bankroll), 5),
-          stakePct: kelly * 100,
-          method: "pinnacle",
+          id:uid, sport:m.sport||ev.sport_title, event:m.homeTeam+" vs "+m.awayTeam,
+          date:m.commence, market:"h2h", marketLabel:"🏆 Vainqueur", outcome:outcome.label,
+          bookeKey:bestBm, bookie:SOFT_LABELS[bestBm]||bestBm, odd:bestOdd,
+          refOdd:outcome.noVig||null, refSource:m.refSource||"Pinnacle",
+          pinnacleAge:m.pinnacleAge!=null?m.pinnacleAge:null,
+          bookOdds:outcome.softOdds, trueProb:tp, ev:bestEv, kelly:kelly,
+          stakeEur:Math.max(Math.round(kelly*br),5), stakePct:kelly*100, method:"pinnacle",
         });
       }
       continue;
-    }>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<!-- BUILD:1779025902 -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ValueEdge v7.9</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
-  :root{--bg:#080c10;--bg2:#0d1219;--bg3:#121920;--border:#1e2d3d;--green:#00e676;--gdim:#00e67618;--amber:#ffab00;--adim:#ffab0018;--red:#ff5252;--rdim:#ff525218;--blue:#29b6f6;--purple:#ce93d8;--text:#e8f0fe;--dim:#546e7a;--mid:#90a4ae;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;}
-  .app{max-width:1400px;margin:0 auto;padding:16px;}
-
-  /* Header */
-  .hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);}
-  .logo{display:flex;align-items:center;gap:10px;}
-  .logo-icon{width:36px;height:36px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#000;}
-  .logo-text{font-size:17px;font-weight:800;}
-  .logo-sub{font-size:9px;color:var(--dim);font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;}
-  .live-btn{display:flex;align-items:center;gap:5px;font-family:'Space Mono',monospace;font-size:10px;color:var(--green);padding:5px 12px;border:1px solid var(--green);border-radius:20px;cursor:pointer;background:none;}
-  .live-btn:hover{background:var(--gdim);}
-  .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite;}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
-  /* Setup */
-  .setup{background:var(--bg2);border:2px solid var(--amber);border-radius:14px;padding:20px;margin-bottom:18px;}
-  .setup-title{font-size:15px;font-weight:800;color:var(--amber);margin-bottom:6px;}
-  .setup-sub{font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:16px;}
-  .setup-row{display:flex;gap:8px;align-items:center;margin-top:8px;}
-  .url-inp{flex:1;background:var(--bg3);border:2px solid var(--amber);border-radius:8px;padding:9px 12px;color:var(--text);font-family:'Space Mono',monospace;font-size:12px;outline:none;}
-  .url-inp:focus{border-color:var(--green);}
-  .chk-btn{padding:9px 16px;background:var(--amber);border:none;border-radius:8px;color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;white-space:nowrap;}
-  .chk-btn:disabled{opacity:.5;}
-  .proxy-ok{background:var(--gdim);border:1px solid var(--green);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--green);font-family:'Space Mono',monospace;margin-top:8px;}
-  .proxy-err{background:var(--rdim);border:1px solid var(--red);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--red);font-family:'Space Mono',monospace;margin-top:8px;}
-  .proxy-connected{background:var(--gdim);border:1px solid var(--green);border-radius:8px;padding:8px 14px;font-size:11px;color:var(--green);font-family:'Space Mono',monospace;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;}
-  .reset-link{color:var(--dim);font-size:10px;cursor:pointer;background:none;border:none;}
-
-  /* Stats */
-  .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px;}
-  .sc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;position:relative;overflow:hidden;}
-  .sc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
-  .sc.g::after{background:var(--green)}.sc.a::after{background:var(--amber)}.sc.b::after{background:var(--blue)}.sc.p::after{background:var(--purple)}
-  .sl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-family:'Space Mono',monospace;margin-bottom:5px;}
-  .sv{font-size:22px;font-weight:800;line-height:1;}
-  .sv.g{color:var(--green)}.sv.a{color:var(--amber)}.sv.b{color:var(--blue)}.sv.p{color:var(--purple)}
-  .ss{font-size:9px;color:var(--mid);margin-top:3px;font-family:'Space Mono',monospace;}
-
-  /* Tabs */
-  .tabs{display:flex;gap:3px;margin-bottom:16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:3px;width:fit-content;}
-  .tab{padding:6px 14px;border-radius:6px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;font-size:12px;color:var(--mid);background:transparent;}
-  .tab.on{background:var(--bg3);color:var(--text);box-shadow:0 0 0 1px var(--border);}
-
-  /* Filters */
-  .filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;align-items:center;}
-  .pill{padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--mid);font-size:11px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;}
-  .pill.on{background:var(--gdim);color:var(--green);border-color:var(--green);}
-  .scan-btn{padding:7px 18px;background:var(--green);border:none;border-radius:8px;color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;cursor:pointer;}
-  .scan-btn:disabled{opacity:.4;cursor:not-allowed;}
-
-  /* Progress */
-  .prog{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:14px;}
-  .prog-bar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin:8px 0;}
-  .prog-fill{height:100%;background:var(--green);border-radius:2px;transition:width .4s;}
-  .steps-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
-  .sp{padding:3px 9px;border-radius:20px;font-family:'Space Mono',monospace;font-size:9px;border:1px solid var(--border);}
-  .sp.wait{color:var(--dim)}.sp.act{color:var(--amber);border-color:var(--amber);background:var(--adim);}
-  .sp.ok{color:var(--green);border-color:var(--green);background:var(--gdim);}
-  .sp.err{color:var(--red);border-color:var(--red);}
-
-  /* Table */
-  .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-  .st{font-size:13px;font-weight:700;}
-  .cnt{font-family:'Space Mono',monospace;font-size:10px;color:var(--green);background:var(--gdim);padding:2px 9px;border-radius:20px;}
-  .mf{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
-  .mp{padding:3px 10px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--mid);font-size:10px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;}
-  .mp.on{background:var(--gdim);color:var(--green);border-color:var(--green);}
-  .tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px;}
-  table{width:100%;border-collapse:collapse;font-size:12px;min-width:960px;}
-  th{padding:9px 11px;text-align:left;font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-family:'Space Mono',monospace;border-bottom:1px solid var(--border);background:var(--bg2);white-space:nowrap;}
-  td{padding:10px 11px;border-bottom:1px solid var(--border);vertical-align:middle;}
-  tr:last-child td{border-bottom:none;}
-  tr:hover td{background:rgba(255,255,255,.01);}
-  .ev-name{font-weight:700;font-size:12px;margin-bottom:2px;}
-  .ev-meta{font-size:9px;color:var(--dim);font-family:'Space Mono',monospace;}
-  .mkt-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:3px;font-family:'Space Mono',monospace;background:var(--bg3);color:var(--mid);border:1px solid var(--border);margin-bottom:3px;}
-  .out-txt{font-size:12px;font-weight:600;}
-  .edge{font-family:'Space Mono',monospace;font-weight:700;}
-  .edge.hi{color:var(--green)}.edge.med{color:var(--amber)}.edge.lo{color:var(--mid)}
-  .ref-odd{font-family:'Space Mono',monospace;font-size:13px;color:var(--mid);}
-  .bc{text-align:center;font-family:'Space Mono',monospace;font-size:13px;color:var(--mid);}
-  .bc.best{font-weight:700;color:var(--green);}
-  .bc.na{opacity:.3;}
-  .rec-tag{display:block;font-size:8px;color:var(--green);margin-bottom:1px;letter-spacing:1px;}
-  .bet-link{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:6px;font-family:'Syne',sans-serif;font-weight:700;font-size:11px;text-decoration:none;border:1px solid var(--green);color:var(--green);background:var(--gdim);white-space:nowrap;}
-  .bet-link:hover{background:var(--green);color:#000;}
-  .stake-eur{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--blue);}
-  .stake-pct{font-family:'Space Mono',monospace;font-size:9px;color:var(--mid);margin-top:1px;}
-
-  /* Suivi */
-  .tc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;}
-  .brow{display:grid;grid-template-columns:2fr 1fr .7fr .7fr .6fr .8fr;padding:9px 12px;background:var(--bg3);border-radius:6px;font-size:11px;align-items:center;gap:8px;margin-bottom:5px;}
-  .brow.hd{color:var(--dim);font-family:'Space Mono',monospace;font-size:9px;text-transform:uppercase;}
-  .spill{padding:3px 8px;border-radius:20px;font-size:9px;font-weight:700;font-family:'Space Mono',monospace;cursor:pointer;border:none;}
-  .spill.won{background:var(--gdim);color:var(--green);}
-  .spill.lost{background:var(--rdim);color:var(--red);}
-  .spill.pending{background:var(--adim);color:var(--amber);}
-  .add-form{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:7px;align-items:end;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
-  .lbl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;font-family:'Space Mono',monospace;margin-bottom:4px;display:block;}
-  .inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-family:'Space Mono',monospace;font-size:13px;outline:none;}
-  .inp:focus{border-color:var(--blue);}
-  .add-btn{padding:8px 14px;background:var(--green);border:none;border-radius:6px;color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;cursor:pointer;}
-
-  /* Calc */
-  .cg{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .cc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:18px;}
-  .ct{font-size:13px;font-weight:700;margin-bottom:14px;}
-  .ig{margin-bottom:10px;}
-  .cr{background:var(--bg3);border-radius:8px;padding:14px;margin-top:14px;}
-  .rr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-  .rr:last-child{margin-bottom:0;padding-top:8px;border-top:1px solid var(--border);}
-  .rl{font-size:11px;color:var(--mid);}
-  .rv{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;}
-  .rv.pos{color:var(--green)}.rv.neg{color:var(--red)}.rv.neu{color:var(--blue)}
-
-  .emp{text-align:center;padding:40px;color:var(--dim);font-family:'Space Mono',monospace;font-size:11px;}
-  #tab-scanner,#tab-calc,#tab-suivi{display:none;}
-  #tab-scanner.active,#tab-calc.active,#tab-suivi.active{display:block;}
-
-  @media(max-width:768px){
-    .stats{grid-template-columns:repeat(2,1fr);}
-    .cg{grid-template-columns:1fr;}
-    .add-form{grid-template-columns:1fr 1fr;}
-  }
-</style>
-</head>
-<body>
-<div class="app">
-
-  <!-- Header -->
-  <div class="hdr">
-    <div class="logo">
-      <div class="logo-icon">📈</div>
-      <div>
-        <div class="logo-text">ValueEdge</div>
-        <div class="logo-sub">Winamax · Betclic · Unibet · PMU</div>
-        <div style="font-size:9px;color:var(--green);font-family:monospace">v7.9</div>
-      </div>
-    </div>
-    <span id="quotaBadge" style="font-size:10px;color:var(--dim);font-family:monospace;margin-right:8px"></span>
-  <button class="live-btn" id="refreshBtn" onclick="startScan()" style="display:none">
-      <div class="dot"></div>ACTUALISER
-    </button>
-  </div>
-
-  <!-- Stats -->
-  <div class="stats">
-    <div class="sc g"><div class="sl">Value Bets</div><div class="sv g" id="statVB">0</div><div class="ss" id="statEvents">0 events</div></div>
-    <div class="sc a"><div class="sl">Edge moyen</div><div class="sv a" id="statEdge">—</div><div class="ss">EV espéré</div></div>
-    <div class="sc b"><div class="sl">Meilleur edge</div><div class="sv b" id="statBest">—</div><div class="ss" id="statBestBook">—</div></div>
-    <div class="sc p"><div class="sl">Bankroll</div><div class="sv p" id="statBR">1 000€</div><div class="ss">départ 1000€</div></div>
-    <div class="sc" id="scPnl" style="border-top:2px solid var(--mid)"><div class="sl">P&L</div><div class="sv" id="statPnl">0€</div><div class="ss" id="statRoi">ROI 0%</div></div>
-  </div>
-
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab on" onclick="showTab('scanner')">🔍 Scanner</button>
-    <button class="tab" onclick="showTab('calc')">🧮 Calculateur</button>
-    <button class="tab" id="suiviTabBtn" onclick="showTab('suivi')">📋 Suivi</button>
-  </div>
-
-  <!-- SCANNER -->
-  <div id="tab-scanner" class="active">
-
-    <!-- Setup proxy -->
-    <div class="setup" id="setupBox">
-      <div class="setup-title">☁️ Connecte ton Cloudflare Worker</div>
-      <div class="setup-sub">
-        Colle l'URL de ton Worker Cloudflare ci-dessous.<br>
-        Format attendu : <code style="color:var(--amber)">https://valueedge-proxy.TONNOM.workers.dev</code>
-      </div>
-      <div class="setup-row">
-        <input class="url-inp" id="proxyUrlInput" placeholder="https://valueedge-proxy.tonnom.workers.dev" />
-        <button class="chk-btn" id="checkBtn" onclick="checkProxy()">🔌 Vérifier</button>
-      </div>
-      <div id="proxyMsg"></div>
-    </div>
-
-    <!-- Connected banner -->
-    <div class="proxy-connected" id="connectedBanner" style="display:none">
-      <span>✓ Worker connecté — données live The Odds API</span>
-      <button class="reset-link" onclick="resetProxy()">Changer d'URL</button>
-    </div>
-
-    <!-- Sport filters -->
-    <div class="filters" id="sportFilters"></div>
-
-    <!-- Progress -->
-    <div class="prog" id="progBox" style="display:none">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <b id="progTitle" style="font-size:13px">Scan en cours…</b>
-        <span id="progMsg" style="font-size:10px;color:var(--mid);font-family:monospace"></span>
-      </div>
-      <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
-      <div class="steps-row" id="stepsRow"></div>
-    </div>
-
-    <!-- Market filter -->
-    <div id="mktFilters" style="display:none;flex-wrap:wrap;gap:14px;margin-bottom:12px;align-items:center">
-      <div class="mf" style="margin-bottom:0">
-        <span style="font-size:9px;color:var(--dim);font-family:monospace;text-transform:uppercase;letter-spacing:2px">Marché :</span>
-        <button class="mp on" onclick="setMktFilter('all')">Tous</button>
-        <button class="mp" onclick="setMktFilter('match')">Match</button>
-        <button class="mp" onclick="setMktFilter('player')">Joueurs</button>
-      </div>
-      <div style="display:flex;gap:5px;align-items:center">
-        <span style="font-size:9px;color:var(--dim);font-family:monospace;text-transform:uppercase;letter-spacing:2px">Méthode :</span>
-        <button class="mp on" id="mthAll" onclick="setMethodFilter('all')">Toutes</button>
-        <button class="mp" id="mthPin" onclick="setMethodFilter('pinnacle')">🎯 Pinnacle</button>
-        <button class="mp" id="mthCon" onclick="setMethodFilter('consensus')">📊 Consensus</button>
-      </div>
-    </div>
-
-    <div id="resultsHeader" style="display:none">
-      <div class="sh">
-        <div class="st">Value Bets — Winamax · Betclic · Unibet · PMU</div>
-        <div class="cnt" id="vbCount">0 opportunités</div>
-      </div>
-    </div>
-
-    <div class="tbl-wrap" id="tblWrap" style="display:none">
-      <table>
-        <thead>
-          <tr>
-            <th>Événement</th>
-            <th>Marché / Issue</th>
-            <th>Edge EV</th>
-            <th>Réf (Sharp)</th>
-            <th style="text-align:center;color:#e63946">Winamax</th>
-            <th style="text-align:center;color:#2196f3">Betclic</th>
-            <th style="text-align:center;color:#00c853">Unibet</th>
-            <th style="text-align:center;color:#ff9800">PMU</th>
-            <th>Mise Kelly ¼</th>
-            <th>Parier</th>
-          </tr>
-        </thead>
-        <tbody id="vbTbody"></tbody>
-      </table>
-    </div>
-
-    <div class="emp" id="emptyMsg" style="display:none">Aucune value bet détectée actuellement.</div>
-    <div class="emp" id="startMsg">Sélectionne des sports et clique sur 🔄 Scanner.</div>
-  <div id="debugDump" style="display:none;background:var(--bg2);border:1px solid var(--amber);border-radius:8px;padding:12px;margin-top:10px;font-family:monospace;font-size:10px;line-height:1.7;color:var(--text);word-break:break-all"></div>
-    <div id="debugBox" style="display:none;background:var(--bg2);border:1px solid var(--amber);border-radius:10px;padding:16px;margin-top:14px"></div>
-  </div>
-
-  <!-- CALCULATEUR -->
-  <div id="tab-calc">
-    <div class="cg">
-      <div class="cc">
-        <div class="ct">🧮 Calculateur EV + Kelly</div>
-        <div class="ig"><label class="lbl">Cote proposée</label><input class="inp" id="cOdd" type="number" step="0.01" value="2.10" oninput="calcKelly()"></div>
-        <div class="ig"><label class="lbl">Probabilité réelle (%)</label><input class="inp" id="cProb" type="number" step="0.5" value="52" oninput="calcKelly()"></div>
-        <div class="ig"><label class="lbl">Bankroll (€)</label><input class="inp" id="cBR" type="number" value="1000" oninput="calcKelly()"></div>
-        <div class="cr" id="calcResult"></div>
-      </div>
-      <div class="cc">
-        <div class="ct">📖 Méthode Value Betting</div>
-        <div style="font-size:12px;line-height:1.8;color:var(--mid)">
-          <p style="margin-bottom:10px"><b style="color:var(--text)">Principe</b> — parier quand la cote offerte dépasse la vraie probabilité.</p>
-          <div style="background:var(--bg3);border-radius:7px;padding:12px;margin-bottom:10px;font-family:monospace;font-size:10px;line-height:1.8">
-            <span style="color:var(--dim)">// Prob no-vig (Pinnacle)</span><br>
-            <span style="color:var(--green)">P = P_impl / ΣP_impl</span><br>
-            <span style="color:var(--dim)">// Expected Value</span><br>
-            <span style="color:var(--green)">EV = (P × cote) - 1</span><br>
-            <span style="color:var(--dim)">// Kelly ¼</span><br>
-            <span style="color:var(--green)">f = [(P×cote-1)/(cote-1)] × 0.25</span>
-          </div>
-          <p><b style="color:var(--amber)">⚠ Long terme</b> — rentable sur 200+ paris. Variance court terme élevée.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SUIVI -->
-  <div id="tab-suivi">
-    <div class="tc">
-      <div style="display:flex;justify-content:space-between;margin-bottom:16px">
-        <div><div style="font-size:36px;font-weight:800;color:var(--green)" id="suiviBR">1 000€</div><div style="font-size:10px;color:var(--mid);font-family:monospace;margin-top:3px">départ: 1000€</div></div>
-        <div style="text-align:right">
-          <div style="font-size:10px;color:var(--dim);font-family:monospace" id="suiviWL">0W / 0L</div>
-          <div style="font-size:20px;font-weight:800" id="suiviPnl">+0€</div>
-          <div style="font-size:10px;color:var(--mid);font-family:monospace" id="suiviRoi">ROI: 0%</div>
-        </div>
-      </div>
-      <div id="betsList">
-        <div class="brow hd"><span>Événement</span><span>Bookmaker</span><span>Cote</span><span>Mise</span><span>EV</span><span>Résultat</span></div>
-        <div class="emp" id="noBets" style="padding:20px">Aucun pari. Ajoute depuis le scanner.</div>
-      </div>
-      <div class="add-form">
-        <div><label class="lbl">Événement</label><input class="inp" id="nEvent" placeholder="PSG vs OM"></div>
-        <div><label class="lbl">Bookmaker</label><input class="inp" id="nBook" placeholder="Winamax"></div>
-        <div><label class="lbl">Cote</label><input class="inp" id="nOdd" type="number" step="0.01" placeholder="2.10"></div>
-        <div><label class="lbl">Mise (€)</label><input class="inp" id="nStake" type="number" placeholder="50"></div>
-        <button class="add-btn" onclick="addManualBet()">+ Ajouter</button>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<script>
-// ─── Config ───────────────────────────────────────────────────────────────────
-const USER_BOOKS = [
-  {key:"winamax_fr", label:"Winamax", url:"https://www.winamax.fr/paris-sportifs/"},
-  {key:"betclic_fr", label:"Betclic", url:"https://www.betclic.fr/"},
-  {key:"unibet_fr",  label:"Unibet",  url:"https://www.unibet.fr/"},
-  {key:"pmu_fr",     label:"PMU",     url:"https://www.pmu.fr/paris-sportifs/"},
-];
-const USER_BOOK_KEYS = new Set(USER_BOOKS.map(b=>b.key));
-const SOFT_LABELS = {
-  winamax_fr:"Winamax", betclic_fr:"Betclic", unibet_fr:"Unibet", pmu_fr:"PMU"
-};
-const SHARP_KEYS = new Set(["pinnacle","betfair","betfair_ex_eu","matchbook","marathonbet"]);
-const SPORTS = [
-  {key:"ligue1",      label:"⚽ Ligue 1"},
-  {key:"epl",         label:"⚽ Premier League"},
-  {key:"laliga",      label:"⚽ La Liga"},
-  {key:"ucl",         label:"⚽ Champions League"},
-  {key:"bundesliga",  label:"⚽ Bundesliga"},
-  {key:"seriea",      label:"⚽ Serie A"},
-  {key:"nba",         label:"🏀 NBA"},
-  {key:"roland_atp",  label:"🎾 Roland Garros ATP"},
-  {key:"nhl",         label:"🏒 NHL"},
-];
-const MARKET_LABELS = {
-  h2h:"🏆 Vainqueur",spreads:"📐 Handicap",totals:"🔢 Total",btts:"⚽ Les deux marquent",
-  player_points:"🏀 Points joueur",player_rebounds:"🏀 Rebonds",player_assists:"🏀 Passes",
-  player_threes:"🏀 3-Points",player_goals:"🥅 Buts joueur",player_shots_on_goal:"🏒 Tirs cadrés",
-};
-function getMarkets(k){
-  // Seuls h2h et totals sont garantis en région EU
-  if(k.startsWith("tennis")) return "h2h";
-  return "h2h,totals";
-}
-
-// ─── State ────────────────────────────────────────────────────────────────────
-let proxyUrl = localStorage.getItem("proxyUrl") || "";
-let proxyOk  = false;
-let activeSports = new Set(["soccer_france_ligue1","soccer_epl","basketball_nba"]);
-let allEvents = [];
-let allVB = [];
-let mktFilter = "all";
-let methodFilter = "all";
-let bets = JSON.parse(localStorage.getItem("bets")||"[]");
-let bankroll = 1000;
-
-// ─── Init ─────────────────────────────────────────────────────────────────────
-window.onload = () => {
-  buildSportFilters();
-  calcKelly();
-  renderBets();
-  if(proxyUrl){
-    document.getElementById("proxyUrlInput").value = proxyUrl;
-    verifyAndConnect(proxyUrl);
-  }
-};
-
-function buildSportFilters(){
-  const c = document.getElementById("sportFilters");
-  SPORTS.forEach(s=>{
-    const b=document.createElement("button");
-    b.className="pill"+(activeSports.has(s.key)?" on":"");
-    b.textContent=s.label;
-    b.onclick=()=>{
-      if(activeSports.has(s.key)){if(activeSports.size>1)activeSports.delete(s.key);}
-      else activeSports.add(s.key);
-      b.className="pill"+(activeSports.has(s.key)?" on":"");
-    };
-    c.appendChild(b);
-  });
-  const btn=document.createElement("button");
-  btn.className="scan-btn";btn.id="scanBtn";
-  btn.textContent="🔄 Scanner";btn.disabled=true;
-  btn.onclick=startScan;
-  c.appendChild(btn);
-}
-
-// ─── Proxy ────────────────────────────────────────────────────────────────────
-async function checkProxy(){
-  const url=document.getElementById("proxyUrlInput").value.trim().replace(/\/+$/,"");
-  if(!url)return;
-  document.getElementById("checkBtn").disabled=true;
-  document.getElementById("checkBtn").textContent="⏳…";
-  document.getElementById("proxyMsg").innerHTML="";
-  await verifyAndConnect(url);
-  document.getElementById("checkBtn").disabled=false;
-  document.getElementById("checkBtn").textContent="🔌 Vérifier";
-}
-
-async function verifyAndConnect(url){
-  try{
-    const r=await fetch(url+"/health",{signal:AbortSignal.timeout(6000)});
-    const d=await r.json();
-    if(r.ok && (d.ok||d.status==="ok"||d.worker)){
-      proxyUrl=url;
-      proxyOk=true;
-      localStorage.setItem("proxyUrl",url);
-      document.getElementById("setupBox").style.display="none";
-      document.getElementById("connectedBanner").style.display="flex";
-      document.getElementById("scanBtn").disabled=false;
-      document.getElementById("refreshBtn").style.display="flex";
-      document.getElementById("startMsg").style.display="block";
-    } else {
-      showProxyError("Réponse inattendue du Worker : "+JSON.stringify(d).slice(0,80));
     }
-  }catch(e){
-    showProxyError("Impossible de joindre le Worker : "+e.message);
-  }
-}
-
-function showProxyError(msg){
-  document.getElementById("proxyMsg").innerHTML=`<div class="proxy-err">✗ ${msg}</div>`;
-  proxyOk=false;
-}
-
-function resetProxy(){
-  proxyOk=false;
-  localStorage.removeItem("proxyUrl");
-  document.getElementById("connectedBanner").style.display="none";
-  document.getElementById("setupBox").style.display="block";
-  document.getElementById("scanBtn").disabled=true;
-  document.getElementById("refreshBtn").style.display="none";
-}
-
-// ─── Scan ─────────────────────────────────────────────────────────────────────
-async function startScan(){
-  if(!proxyOk)return;
-  allEvents=[];allVB=[];
-  document.getElementById("startMsg").style.display="none";
-  document.getElementById("emptyMsg").style.display="none";
-  document.getElementById("tblWrap").style.display="none";
-  document.getElementById("resultsHeader").style.display="none";
-  document.getElementById("mktFilters").style.display="none";
-
-  const box=document.getElementById("progBox");
-  const fill=document.getElementById("progFill");
-  const stepsRow=document.getElementById("stepsRow");
-  const msg=document.getElementById("progMsg");
-  const title=document.getElementById("progTitle");
-
-  box.style.display="block";
-  fill.style.width="0%";
-  title.textContent="Scan en cours…";
-  stepsRow.innerHTML="";
-  msg.textContent="Scan en cours…";
-
-  // Scanner directement les sports sélectionnés (pas de pré-vérification)
-  const sports = SPORTS.filter(s => activeSports.has(s.key));
-  stepsRow.innerHTML = sports.map(s=>`<span class="sp wait" id="step-${s.key}">○ ${s.label}</span>`).join("");
-
-  // Scanner sport par sport
-  let done=0;
-  for(const s of sports){
-    const el=document.getElementById("step-"+s.key);
-    el.className="sp act";el.textContent="⟳ "+s.label;
-    msg.textContent=s.label+"…";
-    try{
-      // Worker reçoit le sport alias et fait la requête ciblée (bookmakers=pinnacle,winamax_fr,...)
-      const r=await fetch(`${proxyUrl}/odds/${s.key}`,{signal:AbortSignal.timeout(20000)});
-      if(!r.ok){
-        const body=await r.text().catch(()=>"");
-        const err=JSON.parse(body||"{}");
-        el.className="sp";el.style.color="var(--dim)";
-        el.textContent=`○ ${s.label} (${err.error||"HTTP "+r.status})`;
-        done++;fill.style.width=(done/sports.length*100)+"%";
-        continue;
-      }
-      const json=await r.json();
-      const matches=json.matches||[];
-      // Convertir le format worker → format interne
-      matches.forEach(m=>{
-        allEvents.push({
-          id:m.id, home_team:m.homeTeam, away_team:m.awayTeam,
-          commence_time:m.commence, sport_title:s.label,
-          bookmakers:[], // déjà parsé côté worker
-          _parsed:m,     // données pré-calculées
-        });
-      });
-      if(json.remaining) document.getElementById("quotaBadge").textContent="Quota: "+json.remaining+" req restantes";
-      if(matches.length===0){
-        el.className="sp";el.style.color="var(--dim)";el.textContent=`○ ${s.label} · 0 match`;
-      } else {
-        const vbCount=matches.filter(m=>m.hasValue).length;
-        el.className="sp ok";
-        el.textContent=`✓ ${s.label} · ${matches.length} matchs · ${vbCount} VB`;
-      }
-    }catch(e){
-      el.className="sp err";el.textContent=`✗ ${s.label}: ${e.message}`;
-    }
-    done++;
-    fill.style.width=(done/sports.length*100)+"%";
-  }
-
-  msg.textContent=allEvents.length+" événements récupérés";
-  title.textContent="Scan terminé";
-
-  allVB = detectVB(allEvents, bankroll);
-
-  msg.textContent = allEvents.length + " événements récupérés";
-  title.textContent = "Scan terminé";
-  renderVB();
-  try { renderOddsDetail(); } catch(e) { console.warn("renderOddsDetail:", e); }
-  updateStats();
-}
-
-function renderDebug(){
-  const userKeys  = new Set(["winamax","betclic","unibet","pmu"]);
-  const sharpKeys = new Set(["pinnacle","betfair","betfair_ex_eu","matchbook","marathonbet"]);
-
-  // Collecter tous les bookmakers présents dans les données
-  const bookMap = {};
-  allEvents.forEach(ev=>{
-    (ev.bookmakers||[]).forEach(b=>{
-      if(!bookMap[b.key]) bookMap[b.key]={title:b.title, count:0};
-      bookMap[b.key].count++;
-    });
-  });
-  const entries = Object.entries(bookMap).sort((a,b)=>b[1].count-a[1].count);
-  const matchedUser = entries.filter(([k])=>userKeys.has(k));
-
-  // Injecter dans la zone de progression déjà visible
-  const progBox = document.getElementById("progBox");
-  if(!progBox) return;
-
-  // Supprimer ancien debug s'il existe
-  const old = document.getElementById("debugInline");
-  if(old) old.remove();
-
-  const div = document.createElement("div");
-  div.id = "debugInline";
-  div.style.cssText = "margin-top:12px;padding-top:12px;border-top:1px solid var(--border)";
-
-  // Titre
-  div.innerHTML = `<div style="font-size:10px;color:var(--amber);font-family:monospace;font-weight:700;margin-bottom:8px">
-    🔧 BOOKMAKERS DANS LES DONNÉES (${allEvents.length} events)</div>`;
-
-  // Alerte si aucun bookmaker utilisateur trouvé
-  if(matchedUser.length === 0){
-    div.innerHTML += `<div style="background:var(--rdim);border:1px solid var(--red);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--red);margin-bottom:8px;font-family:monospace;line-height:1.5">
-      ⚠ Winamax, Betclic, Unibet, PMU sont ABSENTS des données.<br>
-      The Odds API ne couvre pas ces bookmakers → 0 value bet possible.</div>`;
-  } else {
-    div.innerHTML += `<div style="background:var(--gdim);border:1px solid var(--green);border-radius:6px;padding:6px 10px;font-size:11px;color:var(--green);margin-bottom:8px;font-family:monospace">
-      ✓ Bookmakers trouvés : ${matchedUser.map(([k,v])=>v.title).join(", ")}</div>`;
-  }
-
-  // Liste tous les bookmakers
-  div.innerHTML += `<div style="font-size:9px;color:var(--dim);font-family:monospace;margin-bottom:5px">TOUS LES BOOKMAKERS RETOURNÉS PAR L'API :</div>`;
-  div.innerHTML += `<div style="display:flex;flex-wrap:wrap;gap:4px">${
-    entries.map(([k,v])=>{
-      const isUser  = userKeys.has(k);
-      const isSharp = sharpKeys.has(k);
-      const col   = isUser?"var(--green)":isSharp?"var(--amber)":"var(--mid)";
-      const bg    = isUser?"var(--gdim)":isSharp?"var(--adim)":"var(--bg3)";
-      const bdr   = isUser?"var(--green)":isSharp?"var(--amber)":"var(--border)";
-      return `<span style="padding:2px 8px;border-radius:20px;border:1px solid ${bdr};background:${bg};color:${col};font-family:monospace;font-size:9px">${isUser?"✓ ":isSharp?"🎯 ":""}${k}&nbsp;(${v.count})</span>`;
-    }).join("")
-  }</div>`;
-
-  progBox.appendChild(div);
-}
-
-// ─── Value bets ───────────────────────────────────────────────────────────────
-function noVig(odds){const p=odds.map(o=>1/o),s=p.reduce((a,b)=>a+b,0);return p.map(x=>x/s);}
-function normalize(s){
-  return (s||"").toLowerCase()
-    .normalize("NFD").replace(/[̀-ͯ]/g,"")  // accents
-    .replace(/[^a-z0-9]/g," ").replace(/\s+/g," ").trim();
-}
-function oKey(o){
-  // Normalise pour matcher "Montreal" == "Montréal", "Man Utd" == "Manchester Utd"
-  return normalize(o.name)+"|"+(o.description?normalize(o.description):"")+"|"+(o.point??"");
-}
-function oLabel(o){
-  if(o.description&&o.point!==undefined)return`${o.description} ${o.name} ${o.point}`;
-  if(o.point!==undefined)return`${o.name} ${o.point>=0?"+":""}${o.point}`;
-  return o.name;
-}
-
-
-
-// ─── Consensus no-vig ────────────────────────────────────────────────────────
-// Utilise la moyenne harmonique des cotes de TOUS les books disponibles
-// Beaucoup plus robuste que Pinnacle seul quand les données sont en cache
-function consensusProb(books, mKey, outName) {
-  const odds = [];
-  books.forEach(bk => {
-    const mkt = bk.markets?.find(m => m.key === mKey);
-    if (!mkt) return;
-    const o = mkt.outcomes.find(o2 => normalize(o2.name) === normalize(outName));
-    if (o && o.price > 1.01) odds.push(o.price);
-  });
-  if (odds.length < 2) return null;
-  // Moyenne harmonique des probs implicites = prob consensus brute
-  const rawProb = odds.length / odds.reduce((s, o) => s + 1/o, 0);
-  // Ajustement conservateur -3% pour tenir compte des marges résiduelles
-  return rawProb * 0.97;
-}
-
-function detectVB(events, bankroll) {
-  const out = [], seen = new Set();
-
-  for (const ev of events) {
-    // ── Branche A : données pré-calculées par le Worker (Pinnacle no-vig) ──
-    if (ev._parsed) {
-      const m = ev._parsed;
-      for (const outcome of (m.markets?.h2h?.outcomes || [])) {
-        if (!outcome.trueProb || !outcome.softOdds) continue;
-        // trueProb from Worker: normally in % (e.g. 52.3)
-        // But consensus fallback bug: trueProb = 100/prob where prob is already 0-1
-        // giving trueProb>100. Detect and correct.
-        let tp;
-        if (outcome.trueProb > 100) {
-          // trueProb is actually 100/probability where prob is 0-1
-          // so real prob = 100/trueProb
-          tp = 100 / outcome.trueProb / 100;  // = 1/trueProb
-        } else {
-          tp = outcome.trueProb / 100;
-        }
-
-        for (const bm of Object.keys(outcome.softOdds)) {
-          const odd = outcome.softOdds[bm];
-          if (!odd || odd <= 1) continue;
-          const evPct = (tp * odd - 1) * 100;
-          if (evPct <= 1.0) continue;
-
-          const uid = `pinnacle-${m.id}-${bm}-${normalize(outcome.label)}`;
-          if (seen.has(uid)) continue;
-          seen.add(uid);
-
-          const kelly = Math.max(0, (tp * odd - 1) / (odd - 1)) * 0.25;
-          out.push({
-            id: uid,
-            sport: m.sport,
-            event: `${m.homeTeam} vs ${m.awayTeam}`,
-            date: m.commence,
-            market: "h2h", marketLabel: "🏆 Vainqueur",
-            outcome: outcome.label,
-            bookeKey: bm, bookie: SOFT_LABELS[bm] || bm,
-            odd, refOdd: outcome.noVig || null,
-            refSource: m.refSource || "Pinnacle",
-            pinnacleAge: m.pinnacleAge != null ? m.pinnacleAge : null,
-            bookOdds: outcome.softOdds,
-            trueProb: tp, ev: evPct, kelly,
-            stakeEur: Math.max(Math.round(kelly * bankroll), 5),
-            stakePct: kelly * 100,
-            method: "pinnacle",
-          });
-        }
-      }
-      continue;
-    }
-    // ── Branche B : consensus multi-books (fallback si pas de Worker) ──
-    const books = ev.bookmakers || [];
+    var books = ev.bookmakers || [];
     if (books.length < 3) continue;
-
-    const sharp = books.find(b => SHARP_KEYS.has(b.key));
-    const allMKeys = new Set();
-    books.forEach(b => (b.markets || []).forEach(m => allMKeys.add(m.key)));
-
-    for (const mKey of allMKeys) {
-      const outcomeNames = new Set();
-      books.forEach(bk => {
-        const mkt = bk.markets?.find(m => m.key === mKey);
-        (mkt?.outcomes || []).forEach(o => outcomeNames.add(o.name));
+    var sharp = null;
+    for (var si=0;si<books.length;si++){if(SHARP_KEYS.has(books[si].key)){sharp=books[si];break;}}
+    var allMKeys = new Set();
+    books.forEach(function(b){(b.markets||[]).forEach(function(mk){allMKeys.add(mk.key);});});
+    allMKeys.forEach(function(mKey) {
+      var nameSet = new Set();
+      books.forEach(function(bk){
+        var mkt=bk.markets&&bk.markets.find(function(mm){return mm.key===mKey;});
+        (mkt?mkt.outcomes:[]).forEach(function(o){nameSet.add(o.name);});
       });
-      if (outcomeNames.size < 2) continue;
-
-      const pMap = {}, refOddMap = {};
-
-      if (sharp) {
-        const sm = sharp.markets?.find(m => m.key === mKey);
-        if (sm && sm.outcomes.length >= 2) {
-          const prbs = noVig(sm.outcomes.map(o => o.price));
-          sm.outcomes.forEach((o, i) => {
-            pMap[normalize(o.name)] = prbs[i];
-            refOddMap[normalize(o.name)] = o.price;
-          });
-        }
-      }
-
-      for (const name of outcomeNames) {
-        const nk = normalize(name);
-        if (pMap[nk]) continue;
-        const prob = consensusProb(books, mKey, name);
-        if (prob) { pMap[nk] = prob; refOddMap[nk] = +(1 / prob).toFixed(3); }
-      }
-
-      if (Object.keys(pMap).length < 2) continue;
-
-      // Collecter toutes les cotes par outcome pour trouver le meilleur book
-      const outcomeMap = {}; // nk → {bestBm, bestOdd, bestEv, bookOdds}
-      for (const bk of books) {
-        if (!USER_BOOK_KEYS.has(bk.key)) continue;
-        const bm = bk.markets?.find(m => m.key === mKey);
-        if (!bm) continue;
-        for (const outcome of bm.outcomes) {
-          const nk = normalize(outcome.name);
-          const tp = pMap[nk];
-          if (!tp || outcome.price <= 1) continue;
-          const evPct = (tp * outcome.price - 1) * 100;
-          if (evPct <= 1.0) continue;
-          if (!outcomeMap[nk]) {
-            // Récupérer les cotes de tous les books pour cet outcome
-            const bookOdds = {};
-            USER_BOOKS.forEach(ub => {
-              const ubBook = books.find(b => b.key === ub.key);
-              const ubMkt  = ubBook?.markets?.find(m => m.key === mKey);
-              bookOdds[ub.key] = ubMkt?.outcomes?.find(o => normalize(o.name) === nk)?.price ?? null;
-            });
-            outcomeMap[nk] = { name: outcome.name, bestBm: bk.key, bestOdd: outcome.price, bestEv: evPct, bookOdds, tp };
-          } else if (evPct > outcomeMap[nk].bestEv) {
-            outcomeMap[nk].bestBm  = bk.key;
-            outcomeMap[nk].bestOdd = outcome.price;
-            outcomeMap[nk].bestEv  = evPct;
-          }
-        }
-      }
-      // Émettre 1 ligne par outcome (le meilleur book)
-      for (const [nk, best] of Object.entries(outcomeMap)) {
-        const uid = `consensus-${ev.id}-${mKey}-${nk}`;
-        if (seen.has(uid)) continue;
-        seen.add(uid);
-        const kelly = Math.max(0, (best.tp * best.bestOdd - 1) / (best.bestOdd - 1)) * 0.25;
-        out.push({
-          id: uid,
-          sport: ev.sport_title || ev.sport_key,
-          event: `${ev.home_team} vs ${ev.away_team}`,
-          date: ev.commence_time, market: mKey,
-          marketLabel: MARKET_LABELS[mKey] || mKey,
-          outcome: best.name,
-          bookeKey: best.bestBm, bookie: USER_BOOKS.find(b=>b.key===best.bestBm)?.label || best.bestBm,
-          odd: best.bestOdd, refOdd: refOddMap[nk] ?? null,
-          refSource: sharp ? sharp.title : `Consensus (${books.length} books)`,
-          bookOdds: best.bookOdds, trueProb: best.tp, ev: best.bestEv, kelly,
-          stakeEur: Math.max(Math.round(kelly * bankroll), 5),
-          stakePct: kelly * 100,
-          method: "consensus",
-        });
-      }
-    }
-  }
-  return out.sort((a, b) => b.ev - a.ev);
-}
-
-
-function renderOddsDetail(){
-  // Tableau détaillé de toutes les cotes par match
-  const sharpKeys=new Set(["pinnacle","betfair","betfair_ex_eu","matchbook","marathonbet"]);
-  const uKeys=new Set(["winamax_fr","betclic_fr","unibet_fr","pmu_fr"]);
-  let html=`<div style="margin-top:20px">
-    <div style="font-size:13px;font-weight:700;margin-bottom:6px">📊 Toutes les cotes par match</div>
-    <div style="font-size:10px;color:var(--amber);font-family:monospace;margin-bottom:10px;background:var(--adim);border:1px solid var(--amber);border-radius:6px;padding:6px 10px">
-      ⚠ Plan gratuit The Odds API : cotes potentiellement en cache (jusqu'à plusieurs heures). 
-      La colonne "Mise à jour" indique l'âge des données — en rouge = données trop anciennes.
-    </div>
-    <div style="overflow-x:auto;border:1px solid var(--border);border-radius:10px">
-    <table style="width:100%;border-collapse:collapse;font-size:11px;min-width:700px">
-    <thead><tr style="border-bottom:1px solid var(--border);background:var(--bg2)">
-      <th style="padding:8px 10px;text-align:left;font-family:monospace;font-size:9px;color:var(--dim);text-transform:uppercase">Match</th>
-      <th style="padding:8px 10px;text-align:left;font-family:monospace;font-size:9px;color:var(--dim);text-transform:uppercase">Issue</th>
-      <th style="padding:8px 10px;text-align:center;font-family:monospace;font-size:9px;color:var(--amber)">Pinnacle (réf)</th>
-      <th style="padding:8px 10px;text-align:center;font-family:monospace;font-size:9px;color:var(--amber)">Prob réelle</th>
-      <th style="padding:8px 10px;text-align:center;font-family:monospace;font-size:9px;color:#e63946">Winamax</th>
-      <th style="padding:8px 10px;text-align:center;font-family:monospace;font-size:9px;color:#2196f3">Betclic</th>
-      <th style="padding:8px 10px;text-align:center;font-family:monospace;font-size:9px;color:#00c853">Unibet</th>
-      <th style="padding:8px 10px;text-align:center;font-family:monospace;font-size:9px;color:#ff9800">PMU</th>
-      <th style="padding:8px 10px;text-align:center;font-family:monospace;font-size:9px;color:var(--green)">EV max</th>
-      <th style="padding:8px 10px;text-align:left;font-family:monospace;font-size:9px;color:var(--dim)">Mise à jour</th>
-    </tr></thead><tbody>`;
-
-  allEvents.forEach(ev=>{
-    const books=ev.bookmakers||[];
-    const sharp=books.find(b=>sharpKeys.has(b.key));
-    // Récupérer toutes les issues du match depuis n'importe quel book
-    const anyMkt = (sharp||books[0])?.markets?.find(m=>m.key==="h2h");
-    if(!anyMkt||anyMkt.outcomes.length<2) return;
-
-    anyMkt.outcomes.forEach((out,i)=>{
-      // Probabilité : Pinnacle si dispo, sinon consensus
-      let tp, pinnOdd;
+      if(nameSet.size<2)return;
+      var pMap={},refOddMap={};
       if(sharp){
-        const sm=sharp.markets?.find(m=>m.key==="h2h");
-        const so=sm?.outcomes?.find(o=>normalize(o.name)===normalize(out.name));
-        if(so){ pinnOdd=so.price; tp=null; } // calculé plus bas
-      }
-      if(!pinnOdd){
-        // Consensus
-        const prob=consensusProb(books,"h2h",out.name);
-        tp=prob; pinnOdd=prob?1/prob:null;
-      }
-      // Recalcul no-vig Pinnacle si présent
-      if(sharp&&!tp){
-        const sm=sharp.markets?.find(m=>m.key==="h2h");
+        var sm=sharp.markets&&sharp.markets.find(function(mm){return mm.key===mKey;});
         if(sm&&sm.outcomes.length>=2){
-          const prbs=noVig(sm.outcomes.map(o=>o.price));
-          const idx2=sm.outcomes.findIndex(o=>normalize(o.name)===normalize(out.name));
-          if(idx2>=0) tp=prbs[idx2];
+          var prbs=noVig(sm.outcomes.map(function(o){return o.price;}));
+          sm.outcomes.forEach(function(o,i){pMap[normalize(o.name)]=prbs[i];refOddMap[normalize(o.name)]=o.price;});
         }
       }
-      if(!tp||!pinnOdd) return;
-
-      // Cotes des 4 bookmakers FR
-      const frOdds={};
-      ["winamax_fr","betclic_fr","unibet_fr","pmu_fr"].forEach(bk=>{
-        const book=books.find(b=>b.key===bk);
-        const bmkt=book?.markets?.find(m=>m.key==="h2h");
-        const o=bmkt?.outcomes?.find(o=>normalize(o.name)===normalize(out.name));
-        frOdds[bk]=o?.price??null;
+      nameSet.forEach(function(name){
+        var nk=normalize(name); if(pMap[nk])return;
+        var odds=books.map(function(bk){
+          var mkt=bk.markets&&bk.markets.find(function(mm){return mm.key===mKey;});
+          var o=mkt&&mkt.outcomes.find(function(x){return normalize(x.name)===nk;});
+          return(o&&o.price>1)?o.price:null;
+        }).filter(Boolean);
+        if(odds.length<3)return;
+        var hm=odds.length/odds.reduce(function(s,o){return s+1/o;},0);
+        pMap[nk]=1/hm; refOddMap[nk]=+(hm*0.97).toFixed(3);
       });
-
-      // EV max parmi les 4
-      const evs=Object.values(frOdds).filter(Boolean).map(o=>(tp*o-1)*100);
-      const maxEv=evs.length?Math.max(...evs):-99;
-      const evColor=maxEv>=1?"var(--green)":maxEv>=0?"var(--amber)":"var(--red)";
-
-      html+=`<tr style="border-bottom:1px solid var(--border)">
-        <td style="padding:8px 10px;font-weight:600">${ev.home_team} vs ${ev.away_team}<br>
-          <span style="font-size:9px;color:var(--dim);font-family:monospace;font-weight:400">${ev.sport_title} · ${new Date(ev.commence_time).toLocaleString("fr-FR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</span></td>
-        <td style="padding:8px 10px;font-family:monospace">${out.name}</td>
-        <td style="padding:8px 10px;text-align:center;font-family:monospace;color:var(--amber)">${pinnOdd.toFixed(2)}</td>
-        <td style="padding:8px 10px;text-align:center;font-family:monospace;color:var(--mid)">${(tp*100).toFixed(1)}%</td>
-        ${["winamax_fr","betclic_fr","unibet_fr","pmu_fr"].map(bk=>{
-          const o=frOdds[bk];
-          const ev2=o?(tp*o-1)*100:-999;
-          const col=ev2>=1?"var(--green)":ev2>=0?"var(--amber)":"var(--mid)";
-          const bold=ev2>=1?"font-weight:700":"";
-          return`<td style="padding:8px 10px;text-align:center;font-family:monospace;color:${col};${bold}">${o?o.toFixed(2):"—"}</td>`;
-        }).join("")}
-        <td style="padding:8px 10px;text-align:center;font-family:monospace;color:${evColor};font-weight:${maxEv>=1?700:400}">${maxEv>-99?(maxEv>=0?"+":"")+maxEv.toFixed(1)+"%":"—"}</td>
-        <td style="padding:8px 10px;font-family:monospace;font-size:9px;color:var(--dim)">${(()=>{
-          const ts=sharp?.markets?.find(m=>m.key==="h2h")?.last_update;
-          if(!ts) return "—";
-          const d=new Date(ts);
-          const diff=Math.round((Date.now()-d)/60000);
-          const col=diff>60?"var(--red)":diff>15?"var(--amber)":"var(--green)";
-          return`<span style="color:${col}">${diff < 60 ? diff+"min" : Math.round(diff/60)+"h"} ago</span>`;
-        })()}</td>
-      </tr>`;
+      if(Object.keys(pMap).length<2)return;
+      var outcomeMap={};
+      books.forEach(function(bk){
+        if(!USER_BOOK_KEYS.has(bk.key))return;
+        var bm2=bk.markets&&bk.markets.find(function(mm){return mm.key===mKey;});
+        if(!bm2)return;
+        bm2.outcomes.forEach(function(outcome2){
+          var nk2=normalize(outcome2.name), tp2=pMap[nk2];
+          if(!tp2||outcome2.price<=1)return;
+          var evPct2=(tp2*outcome2.price-1)*100;
+          if(evPct2<=1.0)return;
+          if(!outcomeMap[nk2]||evPct2>outcomeMap[nk2].bestEv){
+            var bookOdds2={};
+            USER_BOOKS.forEach(function(ub){
+              var ubBook=books.find(function(b2){return b2.key===ub.key;});
+              var ubMkt=ubBook&&ubBook.markets&&ubBook.markets.find(function(mm){return mm.key===mKey;});
+              bookOdds2[ub.key]=(ubMkt&&ubMkt.outcomes.find(function(o2){return normalize(o2.name)===nk2;})||{}).price||null;
+            });
+            outcomeMap[nk2]={name:outcome2.name,bestBm:bk.key,bestOdd:outcome2.price,bestEv:evPct2,bookOdds:bookOdds2,tp:tp2};
+          }
+        });
+      });
+      Object.keys(outcomeMap).forEach(function(nk3){
+        var best=outcomeMap[nk3];
+        var uid2="con-"+ev.id+"-"+mKey+"-"+nk3;
+        if(seen.has(uid2))return; seen.add(uid2);
+        var kelly2=Math.max(0,(best.tp*best.bestOdd-1)/(best.bestOdd-1))*0.25;
+        out.push({
+          id:uid2, sport:ev.sport_title||ev.sport_key, event:ev.home_team+" vs "+ev.away_team,
+          date:ev.commence_time, market:mKey, marketLabel:MARKET_LABELS[mKey]||mKey,
+          outcome:best.name, bookeKey:best.bestBm, bookie:SOFT_LABELS[best.bestBm]||best.bestBm,
+          odd:best.bestOdd, refOdd:refOddMap[nk3]||null,
+          refSource:sharp?sharp.title:"Consensus ("+books.length+" books)",
+          bookOdds:best.bookOdds, trueProb:best.tp, ev:best.bestEv, kelly:kelly2,
+          stakeEur:Math.max(Math.round(kelly2*br),5), stakePct:kelly2*100, method:"consensus",
+        });
+      });
     });
-  });
-
-  html+=`</tbody></table></div></div>`;
-
-  // Injecter après le tableau principal
-  let detailBox=document.getElementById("oddsDetailBox");
-  if(!detailBox){
-    detailBox=document.createElement("div");
-    detailBox.id="oddsDetailBox";
-    document.getElementById("tblWrap").parentNode.appendChild(detailBox);
   }
-  detailBox.innerHTML=html;
+  return out.sort(function(a,b){return b.ev-a.ev;});
 }
 
-
-function setMktFilter(f){
+function setMktFilter(f) {
   mktFilter=f;
-  document.querySelectorAll("#mktFilters .mp").forEach((b,i)=>{
-    b.className="mp"+(["all","match","player"][i]===f?" on":"");
-  });
+  var btns=document.querySelectorAll("#mfWrap .mf:first-child .mp");
+  btns.forEach(function(b,i){b.className="mp"+(["all","match","player"][i]===f?" on":"");});
   renderVB();
 }
-function setMethodFilter(f){
+function setMethodFilter(f) {
   methodFilter=f;
-  ["mthAll","mthPin","mthCon"].forEach((id,i)=>{
-    const el=document.getElementById(id);
-    if(el) el.className="mp"+([f==="all",f==="pinnacle",f==="consensus"][i]?" on":"");
+  ["mthAll","mthPin","mthCon"].forEach(function(id,i){
+    var el=document.getElementById(id);
+    if(el)el.className="mp"+([f==="all",f==="pinnacle",f==="consensus"][i]?" on":"");
   });
   renderVB();
 }
 
-function renderVB(){
-  let filtered=mktFilter==="all"?allVB
-    :mktFilter==="match"?allVB.filter(v=>!v.market.startsWith("player_"))
-    :allVB.filter(v=>v.market.startsWith("player_"));
-  if(methodFilter!=="all") filtered=filtered.filter(v=>v.method===methodFilter);
-
-  const countM=allVB.filter(v=>!v.market.startsWith("player_")).length;
-  const countP=allVB.filter(v=>v.market.startsWith("player_")).length;
-
-  // Update market filter labels
-  const mps=document.querySelectorAll(".mp");
-  if(mps[0])mps[0].textContent=`Tous (${allVB.length})`;
-  if(mps[1])mps[1].textContent=`Match (${countM})`;
-  if(mps[2])mps[2].textContent=`Joueurs (${countP})`;
-
-  if(allVB.length===0){
-    document.getElementById("emptyMsg").style.display="block";
-    document.getElementById("tblWrap").style.display="none";
-    document.getElementById("resultsHeader").style.display="none";
-    document.getElementById("mktFilters").style.display="none";
-    return;
-  }
-
-  document.getElementById("mktFilters").style.display="flex"; document.getElementById("mktFilters").style.flexWrap="wrap";
-  document.getElementById("resultsHeader").style.display="block";
-  document.getElementById("tblWrap").style.display="block";
-  document.getElementById("vbCount").textContent=filtered.length+" opportunités";
-
-  const tbody=document.getElementById("vbTbody");
-  tbody.innerHTML=filtered.map(vb=>{
-    const isH=vb.ev>=5,isM=vb.ev>=2.5;
-    const cls=isH?"hi":isM?"med":"lo";
-    const recBook=USER_BOOKS.find(b=>b.key===vb.bookeKey);
-    const bookCells=USER_BOOKS.map(b=>{
-      const o=vb.bookOdds[b.key],isRec=b.key===vb.bookeKey;
-      if(!o)return`<td class="bc na">—</td>`;
-      return`<td class="bc ${isRec?"best":""}">${isRec?`<span class="rec-tag">▶ BEST</span>`:""}${o.toFixed(2)}</td>`;
-    }).join("");
-    const actionCell=recBook
-      ?`<a href="${recBook.url}" target="_blank" class="bet-link" onclick="addVB('${vb.id}')">→ ${recBook.label}</a>`
-      :"—";
-    return`<tr style="${isH?"background:rgba(0,230,118,.025)":""}">
-      <td><div class="ev-name">${vb.sport} ${vb.event}<span style="margin-left:6px;font-size:9px;padding:1px 6px;border-radius:3px;font-family:monospace;font-weight:700;background:${vb.method==="pinnacle"?"var(--adim)":"var(--gdim)"};color:${vb.method==="pinnacle"?"var(--amber)":"var(--green)"}">${vb.method==="pinnacle"?"🎯 Pinnacle":"📊 Consensus"}</span></div><div class="ev-meta">${fmtDate(vb.date)}${vb.pinnacleAge!=null?' · <span style="color:'+(vb.pinnacleAge<15?'var(--green)':vb.pinnacleAge<60?'var(--amber)':'var(--red)')+'">Pinnacle mis à jour il y a '+vb.pinnacleAge+'min</span>':''}</div></td>
-      <td><div class="mkt-badge">${vb.marketLabel}</div><div class="out-txt">${vb.outcome}</div></td>
-      <td><div class="edge ${cls}">+${vb.ev.toFixed(1)}%</div><div style="font-size:9px;color:var(--dim);font-family:monospace">${(vb.trueProb*100).toFixed(1)}% prob</div></td>
-      <td><div class="ref-odd">${vb.refOdd?vb.refOdd.toFixed(2):"—"}</div><div style="font-size:9px;color:var(--dim);font-family:monospace">${vb.refSource}</div></td>
-      ${bookCells}
-      <td><div class="stake-eur">${vb.stakeEur}€</div><div class="stake-pct">${vb.stakePct.toFixed(1)}% bankroll</div></td>
-      <td>${actionCell}</td>
-    </tr>`;
-  }).join("");
-}
-
-function addVB(id){
-  const vb=allVB.find(v=>v.id===id);
-  if(!vb)return;
-  bets.push({id:Date.now(),event:vb.event,bookie:vb.bookie,odd:vb.odd,stake:vb.stakeEur,value:vb.ev,status:"pending",profit:0});
-  saveBets();
-  renderBets();
-}
-
-function fmtDate(iso){
+function fmtDate(iso) {
   if(!iso)return"";
-  const d=new Date(iso);
+  var d=new Date(iso);
   return d.toLocaleDateString("fr-FR",{day:"2-digit",month:"2-digit"})+" "+
          d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
 }
 
-// ─── Suivi ────────────────────────────────────────────────────────────────────
-function saveBets(){localStorage.setItem("bets",JSON.stringify(bets));}
+function renderVB() {
+  var filtered=mktFilter==="all"?allVB
+    :mktFilter==="match"?allVB.filter(function(v){return !v.market.startsWith("player_");})
+    :allVB.filter(function(v){return v.market.startsWith("player_");});
+  if(methodFilter!=="all")filtered=filtered.filter(function(v){return v.method===methodFilter;});
 
+  var countM=allVB.filter(function(v){return !v.market.startsWith("player_");}).length;
+  var countP=allVB.filter(function(v){return v.market.startsWith("player_");}).length;
+  var btns=document.querySelectorAll("#mfWrap .mf:first-child .mp");
+  if(btns[0])btns[0].textContent="Tous ("+allVB.length+")";
+  if(btns[1])btns[1].textContent="Match ("+countM+")";
+  if(btns[2])btns[2].textContent="Joueurs ("+countP+")";
+
+  if(allVB.length===0){
+    document.getElementById("emptyMsg").style.display="block";
+    document.getElementById("tblWrap").style.display="none";
+    document.getElementById("scanResults").style.display="none";
+    document.getElementById("mfWrap").style.display="none";
+    return;
+  }
+  document.getElementById("mfWrap").style.display="flex";
+  document.getElementById("scanResults").style.display="block";
+  document.getElementById("tblWrap").style.display="block";
+  document.getElementById("emptyMsg").style.display="none";
+  document.getElementById("vbCount").textContent=filtered.length+" opportunités";
+
+  var tbody=document.getElementById("vbTbody");
+  tbody.innerHTML=filtered.map(function(vb){
+    var isH=vb.ev>=5,isM=vb.ev>=2.5,cls=isH?"hi":isM?"med":"lo";
+    var recBook=USER_BOOKS.find(function(b){return b.key===vb.bookeKey;});
+    var methBadge=vb.method==="pinnacle"
+      ?'<span class="meth-pin">🎯 Pinnacle</span>'
+      :'<span class="meth-con">📊 Consensus</span>';
+    var pinAge=vb.pinnacleAge!=null
+      ?' · <span style="color:'+(vb.pinnacleAge<15?"var(--green)":vb.pinnacleAge<60?"var(--amber)":"var(--red)")+'">'+vb.pinnacleAge+'min</span>':"";
+    var bookCells=USER_BOOKS.map(function(b){
+      var o=vb.bookOdds[b.key],isRec=b.key===vb.bookeKey;
+      if(!o)return'<td class="bc na">—</td>';
+      return'<td class="bc '+(isRec?"best":"")+'">'+
+        (isRec?'<span class="rec-tag">▶ BEST</span>':"")+o.toFixed(2)+'</td>';
+    }).join("");
+    var actionCell=recBook
+      ?'<a href="'+recBook.url+'" target="_blank" class="bet-link" onclick="addVB(\''+vb.id+'\')">→ '+recBook.label+'</a>'
+      :"—";
+    return'<tr style="'+(isH?"background:rgba(0,230,118,.025)":"")+'">'+
+      '<td><div class="ev-name">'+vb.sport+' '+vb.event+methBadge+'</div>'+
+      '<div class="ev-meta">'+fmtDate(vb.date)+pinAge+'</div></td>'+
+      '<td><div class="mkt-badge">'+vb.marketLabel+'</div><div class="out-txt">'+vb.outcome+'</div></td>'+
+      '<td><div class="edge '+cls+'">+'+vb.ev.toFixed(1)+'%</div>'+
+      '<div style="font-size:9px;color:var(--dim);font-family:monospace">'+(vb.trueProb*100).toFixed(1)+'% prob</div></td>'+
+      '<td><div class="ref-odd">'+(vb.refOdd?vb.refOdd.toFixed(2):"—")+'</div>'+
+      '<div style="font-size:9px;color:var(--dim);font-family:monospace">'+(vb.refSource||"")+'</div></td>'+
+      bookCells+
+      '<td><div class="stake-eur">'+vb.stakeEur+'€</div>'+
+      '<div class="stake-pct">'+vb.stakePct.toFixed(1)+'% bankroll</div></td>'+
+      '<td>'+actionCell+'</td></tr>';
+  }).join("");
+}
+
+function saveBets(){localStorage.setItem("bets",JSON.stringify(bets));}
+function addVB(id){
+  var vb=allVB.find(function(v){return v.id===id;});
+  if(!vb)return;
+  bets.push({id:Date.now(),event:vb.event,bookie:vb.bookie,odd:vb.odd,stake:vb.stakeEur,value:vb.ev,status:"pending",profit:0});
+  saveBets();renderBets();updateStats();
+}
 function toggleStatus(id){
-  const b=bets.find(x=>x.id===id);
+  var b=bets.find(function(x){return x.id===id;});
   if(!b)return;
   if(b.status==="pending"){b.status="won";b.profit=Math.round(b.stake*(b.odd-1));}
   else if(b.status==="won"){b.status="lost";b.profit=-b.stake;}
   else{b.status="pending";b.profit=0;}
   saveBets();renderBets();updateStats();
 }
-
 function renderBets(){
-  const totalProfit=bets.reduce((s,b)=>s+b.profit,0);
-  const closed=bets.filter(b=>b.status!=="pending");
-  const roi=closed.length>0?totalProfit/closed.reduce((s,b)=>s+b.stake,0)*100:0;
-  const W=bets.filter(b=>b.status==="won").length;
-  const L=bets.filter(b=>b.status==="lost").length;
-
+  var totalProfit=bets.reduce(function(s,b){return s+b.profit;},0);
+  var closed=bets.filter(function(b){return b.status!=="pending";});
+  var roi=closed.length>0?totalProfit/closed.reduce(function(s,b){return s+b.stake;},0)*100:0;
+  var W=bets.filter(function(b){return b.status==="won";}).length;
+  var L=bets.filter(function(b){return b.status==="lost";}).length;
   document.getElementById("suiviBR").textContent=(bankroll+totalProfit).toLocaleString("fr")+"€";
-  document.getElementById("suiviBR").style.color=totalProfit>=0?"var(--green)":"var(--red)";
-  document.getElementById("suiviWL").textContent=`${W}W / ${L}L`;
+  document.getElementById("suiviWL").textContent=W+"W / "+L+"L";
   document.getElementById("suiviPnl").textContent=(totalProfit>=0?"+":"")+totalProfit+"€";
   document.getElementById("suiviPnl").style.color=totalProfit>=0?"var(--green)":"var(--red)";
   document.getElementById("suiviRoi").textContent="ROI: "+(roi>=0?"+":"")+roi.toFixed(1)+"%";
-  document.getElementById("suiviTabBtn").textContent="📋 Suivi"+(bets.length?` (${bets.length})`:"");
-
-  const noBets=document.getElementById("noBets");
-  noBets.style.display=bets.length===0?"block":"none";
-
-  const list=document.getElementById("betsList");
-  // Remove old rows except header and noBets
-  list.querySelectorAll(".bet-row").forEach(r=>r.remove());
-  bets.forEach(b=>{
-    const row=document.createElement("div");
+  document.getElementById("suiviTabBtn").textContent="📋 Suivi"+(bets.length?" ("+bets.length+")":"");
+  document.getElementById("noBets").style.display=bets.length===0?"block":"none";
+  document.querySelectorAll(".bet-row").forEach(function(r){r.remove();});
+  bets.forEach(function(b){
+    var row=document.createElement("div");
     row.className="brow bet-row";
-    row.innerHTML=`
-      <span style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${b.event}</span>
-      <span style="color:var(--blue);font-family:monospace;font-size:10px">${b.bookie}</span>
-      <span style="font-family:monospace">${b.odd.toFixed(2)}</span>
-      <span style="font-family:monospace">${b.stake}€</span>
-      <span style="font-family:monospace;color:var(--amber);font-size:10px">${b.value>0?"+"+b.value.toFixed(1)+"%":"—"}</span>
-      <button class="spill ${b.status}" onclick="toggleStatus(${b.id})">
-        ${b.status==="won"?"✓ +"+b.profit+"€":b.status==="lost"?"✗ "+b.profit+"€":"⏳ Pending"}
-      </button>`;
-    list.appendChild(row);
+    row.innerHTML='<span style="font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+b.event+'</span>'+
+      '<span style="color:var(--blue);font-family:monospace;font-size:10px">'+b.bookie+'</span>'+
+      '<span style="font-family:monospace">'+b.odd.toFixed(2)+'</span>'+
+      '<span style="font-family:monospace">'+b.stake+'€</span>'+
+      '<span style="font-family:monospace;color:var(--amber);font-size:10px">'+(b.value>0?"+"+b.value.toFixed(1)+"%":"—")+'</span>'+
+      '<button class="spill '+b.status+'" onclick="toggleStatus('+b.id+')">'+
+        (b.status==="won"?"✓ +"+b.profit+"€":b.status==="lost"?"✗ "+b.profit+"€":"⏳ Pending")+
+      '</button>';
+    document.getElementById("betsList").appendChild(row);
   });
 }
-
 function addManualBet(){
-  const ev=document.getElementById("nEvent").value;
-  const bk=document.getElementById("nBook").value||"—";
-  const odd=parseFloat(document.getElementById("nOdd").value);
-  const stake=parseFloat(document.getElementById("nStake").value);
+  var ev=document.getElementById("nEvent").value;
+  var bk=document.getElementById("nBook").value||"—";
+  var odd=parseFloat(document.getElementById("nOdd").value);
+  var stake=parseFloat(document.getElementById("nStake").value);
   if(!ev||!odd||!stake)return;
-  bets.push({id:Date.now(),event:ev,bookie:bk,odd,stake,value:0,status:"pending",profit:0});
+  bets.push({id:Date.now(),event:ev,bookie:bk,odd:odd,stake:stake,value:0,status:"pending",profit:0});
   saveBets();renderBets();updateStats();
-  ["nEvent","nBook","nOdd","nStake"].forEach(id=>document.getElementById(id).value="");
+  ["nEvent","nBook","nOdd","nStake"].forEach(function(id){document.getElementById(id).value="";});
 }
-
-// ─── Stats ────────────────────────────────────────────────────────────────────
 function updateStats(){
-  const totalProfit=bets.reduce((s,b)=>s+b.profit,0);
-  const closed=bets.filter(b=>b.status!=="pending");
-  const roi=closed.length>0?totalProfit/closed.reduce((s,b)=>s+b.stake,0)*100:0;
-
-  const pinVB=allVB.filter(v=>v.method==="pinnacle").length;
-  const conVB=allVB.filter(v=>v.method==="consensus").length;
+  var totalProfit=bets.reduce(function(s,b){return s+b.profit;},0);
+  var closed=bets.filter(function(b){return b.status!=="pending";});
+  var roi=closed.length>0?totalProfit/closed.reduce(function(s,b){return s+b.stake;},0)*100:0;
+  var pinVB=allVB.filter(function(v){return v.method==="pinnacle";}).length;
+  var conVB=allVB.filter(function(v){return v.method==="consensus";}).length;
   document.getElementById("statVB").textContent=allVB.length;
-  document.getElementById("statEvents").textContent=`${allEvents.length} events · 🎯${pinVB} / 📊${conVB}`;
-  document.getElementById("statEvents").textContent=allEvents.length+" events";
-  document.getElementById("statEdge").textContent=allVB.length?(allVB.reduce((s,b)=>s+b.ev,0)/allVB.length).toFixed(1)+"%":"—";
+  document.getElementById("statEvents").textContent=allEvents.length+" events · 🎯"+pinVB+" / 📊"+conVB;
+  document.getElementById("statEdge").textContent=allVB.length?(allVB.reduce(function(s,b){return s+b.ev;},0)/allVB.length).toFixed(1)+"%":"—";
   document.getElementById("statBest").textContent=allVB[0]?"+"+allVB[0].ev.toFixed(1)+"%":"—";
-  document.getElementById("statBestBook").textContent=allVB[0]?.bookie||"—";
+  document.getElementById("statBestBook").textContent=allVB[0]?allVB[0].bookie:"—";
   document.getElementById("statBR").textContent=(bankroll+totalProfit).toLocaleString("fr")+"€";
   document.getElementById("statPnl").textContent=(totalProfit>=0?"+":"")+totalProfit+"€";
   document.getElementById("statPnl").style.color=totalProfit>=0?"var(--green)":"var(--red)";
   document.getElementById("statRoi").textContent="ROI "+(roi>=0?"+":"")+roi.toFixed(1)+"%";
-  const pnlCard=document.getElementById("scPnl");
-  pnlCard.style.borderTop="2px solid "+(totalProfit>=0?"var(--green)":"var(--red)");
+  document.getElementById("scPnl").style.borderTop="2px solid "+(totalProfit>=0?"var(--green)":"var(--red)");
 }
-
-// ─── Tabs ─────────────────────────────────────────────────────────────────────
 function showTab(t){
-  ["scanner","calc","suivi"].forEach(id=>{
+  ["scanner","calc","suivi"].forEach(function(id){
     document.getElementById("tab-"+id).classList.toggle("active",id===t);
   });
-  document.querySelectorAll(".tab").forEach((b,i)=>{
+  document.querySelectorAll(".tab").forEach(function(b,i){
     b.classList.toggle("on",["scanner","calc","suivi"][i]===t);
   });
 }
-
-// ─── Calculateur ──────────────────────────────────────────────────────────────
 function calcKelly(){
-  const odd=parseFloat(document.getElementById("cOdd").value)||1;
-  const prob=parseFloat(document.getElementById("cProb").value)/100||0;
-  const br=parseFloat(document.getElementById("cBR").value)||1000;
-  const ev=prob*odd-1;
-  const kelly=ev>0?ev/(odd-1):0;
-  const kq=kelly*0.25;
-  document.getElementById("calcResult").innerHTML=`
-    <div class="rr"><span class="rl">Prob. implicite</span><span class="rv neu">${(100/odd).toFixed(1)}%</span></div>
-    <div class="rr"><span class="rl">Expected Value</span><span class="rv ${ev>0?"pos":"neg"}">${ev>=0?"+":""}${(ev*100).toFixed(2)}%</span></div>
-    <div class="rr"><span class="rl">Kelly complet</span><span class="rv neu">${(kelly*100).toFixed(2)}%</span></div>
-    <div class="rr"><span class="rl">Kelly ¼</span><span class="rv neu">${(kq*100).toFixed(2)}% bankroll</span></div>
-    <div class="rr"><span class="rl">Mise suggérée</span><span class="rv ${ev>0?"pos":"neg"}" style="font-size:18px">${ev>0?(kq*br).toFixed(2)+"€":"❌ Ne pas parier"}</span></div>`;
+  var odd=parseFloat(document.getElementById("cOdd").value)||1;
+  var prob=parseFloat(document.getElementById("cProb").value)/100||0;
+  var br=parseFloat(document.getElementById("cBR").value)||1000;
+  var ev=prob*odd-1, kelly=ev>0?ev/(odd-1):0, kq=kelly*0.25;
+  document.getElementById("calcResult").innerHTML=
+    '<div class="rr"><span class="rl">Prob. implicite</span><span class="rv neu">'+(100/odd).toFixed(1)+'%</span></div>'+
+    '<div class="rr"><span class="rl">Expected Value</span><span class="rv '+(ev>0?"pos":"neg")+'">'+(ev>=0?"+":"")+(ev*100).toFixed(2)+'%</span></div>'+
+    '<div class="rr"><span class="rl">Kelly complet</span><span class="rv neu">'+(kelly*100).toFixed(2)+'%</span></div>'+
+    '<div class="rr"><span class="rl">Kelly ¼</span><span class="rv neu">'+(kq*100).toFixed(2)+'% bankroll</span></div>'+
+    '<div class="rr"><span class="rl">Mise</span><span class="rv '+(ev>0?"pos":"neg")+'" style="font-size:18px">'+
+      (ev>0?(kq*br).toFixed(2)+"€":"❌ Ne pas parier")+'</span></div>';
 }
 </script>
 </body>
